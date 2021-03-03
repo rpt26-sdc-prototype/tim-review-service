@@ -1,0 +1,69 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'users'
+--
+-- ---
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `userName` VARCHAR(255) NULL DEFAULT NULL,
+  `profilePicture` VARCHAR(255) NULL DEFAULT NULL,
+  `userTheme` VARCHAR(255) NULL DEFAULT NULL,
+  `steamLevel` INTEGER NULL DEFAULT NULL,
+  `reviewsGiven` INTEGER NULL DEFAULT NULL,
+  `gamesOwned` INTEGER NULL DEFAULT NULL,
+  `playtime` INTEGER NULL DEFAULT NULL,
+  `productActivation` VARCHAR(60) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'reviews'
+--
+-- ---
+
+DROP TABLE IF EXISTS `reviews`;
+
+CREATE TABLE `reviews` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `userID` INTEGER NULL DEFAULT NULL,
+  `reviewText` VARCHAR(8000) NULL DEFAULT NULL,
+  `creationDate` BIGINT NULL DEFAULT NULL,
+  `recommended` VARCHAR NULL DEFAULT NULL,
+  `helpfulCount` INTEGER NULL DEFAULT NULL,
+  `notHelpfulCount` INTEGER NULL DEFAULT NULL,
+  `funnyCount` INTEGER NULL DEFAULT NULL,
+  `earlyAccess` VARCHAR NULL DEFAULT NULL,
+  `awards` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys
+-- ---
+
+ALTER TABLE `reviews` ADD FOREIGN KEY (userID) REFERENCES `users` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `reviews` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `users` (`id`,`userName`,`profilePicture`,`userTheme`,`steamLevel`,`reviewsGiven`,`gamesOwned`,`playtime`,`productActivation`) VALUES
+-- ('','','','','','','','','');
+-- INSERT INTO `reviews` (`id`,`userID`,`reviewText`,`creationDate`,`recommended`,`helpfulCount`,`notHelpfulCount`,`funnyCount`,`earlyAccess`,`awards`) VALUES
+-- ('','','','','','','','','','');

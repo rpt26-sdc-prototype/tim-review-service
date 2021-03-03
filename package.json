@@ -1,16 +1,26 @@
 {
-  "name": "",
-  "version": "",
+  "name": "fecService1",
+  "version": "1.0.0",
   "description": "",
-  "author": "",
+  "author": "Tim Anderson",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "chai": "^4.3.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "lorem-ipsum": "^2.0.3",
+    "mocha": "^8.3.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "username-generator": "^1.1.0"
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
