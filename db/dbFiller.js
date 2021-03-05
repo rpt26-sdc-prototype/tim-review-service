@@ -47,7 +47,7 @@ var twoValProb = (num1) => {
 var makeEverythingWait = () => {
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
-      resolve('hello')
+      resolve()
     }, 100)
   })
 }
