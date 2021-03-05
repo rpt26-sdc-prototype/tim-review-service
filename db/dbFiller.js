@@ -64,7 +64,7 @@ var makeEverythingWait = () => {
     var playTime = generateInbetweenSync(80)
     var activation = generateInbetweenSync(2)
 
-    var results = await db.query(`insert into users (
+    await db.query(`insert into users (
       userName,
       profilePicture,
       userTheme,
@@ -81,7 +81,6 @@ var makeEverythingWait = () => {
         '${playTime}',
         '${activation}'
         )`)
-    var wait = await makeEverythingWait()
   }
 
   //reviews
@@ -98,7 +97,7 @@ var makeEverythingWait = () => {
     var earlyAccess = twoValProb(.9)
     var awards = generateInbetweenSync(20)
 
-    var results = await db.query(`insert into reviews (
+    await db.query(`insert into reviews (
       userID,
       reviewText,
       creationDate,
@@ -121,7 +120,7 @@ var makeEverythingWait = () => {
         '${awards}',
         '${comments}'
         )`)
-    var wait = await makeEverythingWait()
+    await makeEverythingWait()
 
   }
   process.exit(1)
