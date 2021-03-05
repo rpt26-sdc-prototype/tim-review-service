@@ -2,15 +2,10 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 var awsInfo = require('../private');
 
-//defining keys for S3 bucket
-var ID = awsInfo.ID;
-var SECRET = awsInfo.SECRET;
-var BUCKET_NAME = awsInfo.BUCKET_NAME;
-
 //defining bucket
 const s3 = new AWS.S3({
-  accessKeyId: ID,
-  secretAccessKey: SECRET
+  accessKeyId: awsInfo.ID,
+  secretAccessKey: awsInfo.SECRET
 });
 
 //fs read dir get array
@@ -23,7 +18,7 @@ var fileArray = fs.readdirSync(`${__dirname}/../profilePictures/`);
     var fileContent = fs.readFileSync(`${__dirname}/../profilePictures/${fileArray[i]}`)
 
     var params = {
-      Bucket: BUCKET_NAME,
+      Bucket: awsInfo.BUCKET_NAME,
       Key: fileArray[i],
       Body: fileContent
     };

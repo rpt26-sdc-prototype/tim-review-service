@@ -1,8 +1,12 @@
-var UsernameGenerator = require('username-generator');
 var Promise = require('bluebird');
 const LoremIpsum = Promise.promisifyAll(require("lorem-ipsum").LoremIpsum);
 var UsernameGenerator = Promise.promisifyAll(require('username-generator'));
+var db = Promise.promisifyAll(require('../db'));
 
+var fs = require('fs');
+var linkArray = fs.readFileSync(`${__dirname}/../bucketLinks/list.txt`).toString().split('\n');
+
+//random text configuration
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
     max: 8,
@@ -14,101 +18,111 @@ const lorem = new LoremIpsum({
   }
 });
 
-var generateInbetween = (max) => {
-  return new Promise((resolve, reject) => {
-    resolve(Math.ceil(Math.random() * max));
-  });
+//random generation
+var generateInbetweenSync = (max) => {
+  return Math.ceil(Math.random() * max)
 };
 
-var tenPercentChanceFalse = () => {
-  return new Promise((resolve, reject) => {
-    if (Math.random() >= 0.9) {
-      resolve(false)
+var threeValProb = (num1, num2) => {
+  var random = Math.random()
+    if (random <= num1) {
+      return 0
+    } else if (random <= num2) {
+      return 1
     } else {
-      resolve(true)
+      return 2
     }
-  })
 }
 
-// console.log(generateInbetween(100000));
+var twoValProb = (num1) => {
+  var random = Math.random()
+    if (random <= num1) {
+      return 0
+    }  else {
+      return 1
+    }
+}
 
+//limit the number of querys persecond to db
 var makeEverythingWait = () => {
   return new Promise((resolve, reject) => {
     setTimeout(()=>{
       resolve('hello')
-    }, 1000)
+    }, 100)
   })
 }
 
-async function test () {
+(async () => {
   // user
-  var username = await UsernameGenerator.generateUsername()
-  var userTheme = await generateInbetween(10)
-  var steamLevel = await generateInbetween(100)
-  var reviewsGiven = await generateInbetween(20)
-  var gamesOwned = await generateInbetween(25)
-  var playTime = await generateInbetween(80)
+  for (var i = 0; i < 250; i++) {
+    var username = await UsernameGenerator.generateUsername()
+    var profileLink = linkArray[i];
+    var userTheme = generateInbetweenSync(10)
+    var steamLevel = generateInbetweenSync(100)
+    var reviewsGiven = generateInbetweenSync(20)
+    var gamesOwned = generateInbetweenSync(25)
+    var playTime = generateInbetweenSync(80)
+    var activation = generateInbetweenSync(2)
 
+    var results = await db.query(`insert into users (
+      userName,
+      profilePicture,
+      userTheme,
+      steamLevel,
+      reviewsGiven,
+      playtime,
+      productActivation
+      ) values (
+        '${username}',
+        '${profileLink}',
+        '${userTheme}',
+        '${steamLevel}',
+        '${reviewsGiven}',
+        '${playTime}',
+        '${activation}'
+        )`)
+    var wait = await makeEverythingWait()
+  }
 
+  //reviews
+  for (var i = 0; i < 2500; i++) {
+    var randomUser = generateInbetweenSync(250)
+    var reviewTextSize = generateInbetweenSync(10)
+    var reviewText = await lorem.generateParagraphs(reviewTextSize)
+    var creationDate = generateInbetweenSync(31536000)
+    var positiveReview = twoValProb(.1)
+    var helpfulCount = generateInbetweenSync(50)
+    var notHelpfulCount = threeValProb(.8, .95)
+    var funnyCount = threeValProb(.7, .8)
+    var comments = threeValProb(.7, .9)
+    var earlyAccess = twoValProb(.9)
+    var awards = generateInbetweenSync(20)
 
-  // review
-  var randomUser = await generateInbetween(250)
-  var reviewTextSize = await generateInbetween(10)
-  var reviewText = await lorem.generateParagraphs(reviewTextSize)
-  var creationDate = await generateInbetween(31536000)
-  var positiveReview = await tenPercentChanceFalse()
-  var helpfulCount = await generateInbetween(50)
+    var results = await db.query(`insert into reviews (
+      userID,
+      reviewText,
+      creationDate,
+      recommended,
+      helpfulCount,
+      notHelpfulCount,
+      funnyCount,
+      earlyAccess,
+      awards,
+      comments
+      ) values (
+        '${randomUser}',
+        '${reviewText}',
+        '${creationDate}',
+        '${positiveReview}',
+        '${helpfulCount}',
+        '${notHelpfulCount}',
+        '${funnyCount}',
+        '${earlyAccess}',
+        '${awards}',
+        '${comments}'
+        )`)
+    var wait = await makeEverythingWait()
 
-  var notHelpfulCount = await new Promise((resolve, reject)=> {
-    var random = Math.random()
-    if (random <= .8) {
-      resolve(0)
-    } else if (random <= .95) {
-      resolve(1)
-    } else {
-      resolve(2)
-    }
-  })
-
-  var funnyCount = await new Promise((resolve, reject)=> {
-    var random = Math.random()
-    if (random <= .7) {
-      resolve(0)
-    } else if (random <= .9) {
-      resolve(1)
-    } else {
-      resolve(2)
-    }
-  })
-
-  var earlyAccess = await new Promise((resolve, reject)=> {
-    var random = Math.random()
-    if (random <= .9) {
-      resolve(0)
-    } else {
-      resolve(1)
-    }
-  })
-
-
-  // var wait = await makeEverythingWait()
-
-  console.log(`the random user is ${randomUser}`)
-  console.log(`their username is ${username}`)
-  console.log(`playtime in seconds ${playTime}`)
-  console.log(`positive review count ${positiveReview}`)
-  console.log(`helpful count ${helpfulCount}`)
-  console.log(`not helpful count ${notHelpfulCount}`)
-  console.log(`funny count ${funnyCount}`)
-  console.log(`early access ${earlyAccess}`)
-  console.log(`review will be this many paragraphs long: ${reviewTextSize}`)
-  // console.log(wait)
-  // console.log(reviewText)
-
-}
-
-test()
-
-// for (var i = 0; i < 50; i++) {
-//   console.log(Math.floor(Math.random() * 10))
-// }
+  }
+  process.exit(1)
+})()
