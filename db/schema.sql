@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS reviews;
 
 CREATE TABLE reviews (
   ID INT NOT NULL AUTO_INCREMENT,
+  game INT,
   userID INT,
   reviewText VARCHAR(8000),
   creationDate BIGINT,

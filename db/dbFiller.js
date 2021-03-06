@@ -96,9 +96,11 @@ var makeEverythingWait = () => {
     var comments = threeValProb(.7, .9)
     var earlyAccess = twoValProb(.9)
     var awards = generateInbetweenSync(20)
+    var game = generateInbetweenSync(100)
 
     await db.query(`insert into reviews (
       userID,
+      game,
       reviewText,
       creationDate,
       recommended,
@@ -110,6 +112,7 @@ var makeEverythingWait = () => {
       comments
       ) values (
         '${randomUser}',
+        '${game}',
         '${reviewText}',
         '${creationDate}',
         '${positiveReview}',
