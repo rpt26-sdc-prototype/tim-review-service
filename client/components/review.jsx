@@ -1,5 +1,5 @@
 var Review = props => {
-  console.log(props.review);
+  // console.log(props.review);
   return (
     <div>
       <div>Username: {props.review.userName}</div>

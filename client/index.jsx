@@ -6,15 +6,6 @@ import {
 } from "react-router-dom";
 import ReviewList from './components/reviewList.jsx';
 
-// var About = (props) => {
-//   const { id } = useParams();
-//   return (
-//     <div>
-//       <h2>Now showing post {id}</h2>
-//     </div>
-//   );
-// };
-
 class ReviewApp extends React.Component {
   constructor(props) {
     super(props);
@@ -23,16 +14,15 @@ class ReviewApp extends React.Component {
     };
   }
 
-
-
   componentDidMount() {
-    // let { id } = useParams();
-    // console.log(id);
+    let currentURL = window.location.href;
+    let splitArr = currentURL.split('/');
+    let gameID = splitArr[splitArr.length - 1];
+    console.log(gameID);
 
-    fetch('http://localhost:3001/reviews/1')
+    fetch(`http://localhost:3001/reviews/${gameID}`)
       .then(response => response.json())
       .then(reviews => this.setState({ reviews }));
-
   }
 
   render() {
