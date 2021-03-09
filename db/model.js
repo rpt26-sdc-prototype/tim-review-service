@@ -2,7 +2,7 @@ var db = require('./index.js');
 
 var read = (gameID, cb) => {
 
-  db.query(`select * from users inner join reviews where reviews.game = ${gameID}`, (error, results, fields) => {
+  db.query(`select * from reviews inner join users on users.ID = reviews.userID where reviews.game = ${gameID}`, (error, results, fields) => {
     if (error) {
       throw error;
     } else {
@@ -34,12 +34,5 @@ var read = (gameID, cb) => {
     }
   });
 };
-
-//test
-// read(1, (error, data) => {
-//   console.log(data);
-// });
-
-
 
 module.exports.read = read;
