@@ -7,7 +7,6 @@ var random = require('./randomMathGeneration')
 var fs = require('fs');
 var linkArray = fs.readFileSync(`${__dirname}/../bucketLinks/list.txt`).toString().split('\n');
 
-
 //limit the number of querys persecond to db
 var makeEverythingWait = () => {
   return new Promise((resolve, reject) => {
@@ -18,7 +17,7 @@ var makeEverythingWait = () => {
 }
 
 (async () => {
-  // user
+  //users
   for (var i = 0; i < 250; i++) {
     var username = await UsernameGenerator.generateUsername()
     var profileLink = linkArray[i];
@@ -48,7 +47,6 @@ var makeEverythingWait = () => {
         )`)
   }
 
-  console.log(lorem)
   //reviews
   for (var i = 0; i < 2500; i++) {
     var randomUser = random.generateInbetweenSync(250)
