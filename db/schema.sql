@@ -8,11 +8,11 @@ CREATE TABLE users (
   ID INT NOT NULL AUTO_INCREMENT,
   userName varchar(50) UNIQUE NOT NULL,
   profilePicture varchar(255),
-  userTheme varchar(50),
+  userTheme INTEGER,
   steamLevel INTEGER,
   reviewsGiven INTEGER,
   playtime INTEGER,
-  productActivation varchar(50),
+  productActivation INTEGER,
   PRIMARY KEY (ID)
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE reviews (
   notHelpfulCount INTEGER,
   funnyCount INTEGER,
   earlyAccess INTEGER,
-  awards varchar(255),
+  awards INTEGER,
   comments INTEGER,
   PRIMARY KEY (ID),
   FOREIGN KEY (userID) REFERENCES users(ID)
