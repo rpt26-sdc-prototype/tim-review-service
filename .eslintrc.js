@@ -4,6 +4,7 @@
  * Visit this repo for more information:
  *   https://github.com/reactorcore/eslint-config-hackreactor
  */
+env: { 'es8': true }
 
 module.exports = {
   extends: './node_modules/eslint-config-hackreactor/index.js'
