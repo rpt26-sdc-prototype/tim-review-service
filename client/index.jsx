@@ -5,6 +5,18 @@ import {
   useParams
 } from 'react-router-dom';
 import ReviewList from './components/reviewList.jsx';
+// import styled from 'styled-components';
+
+// const StyledButton = styled.button`
+//   background-color: black;
+//   font-size: 32px;
+//   color: white;
+// `;
+
+var Component = () => {
+  // Use it like any other component.
+  return <StyledButton> Login </StyledButton>;
+};
 
 class ReviewApp extends React.Component {
   constructor(props) {
@@ -15,12 +27,13 @@ class ReviewApp extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component did mount');
     let currentURL = window.location.href;
     let splitArr = currentURL.split('/');
     let gameID = splitArr[splitArr.length - 1];
     console.log(gameID);
 
-    fetch(`http://localhost:3001/reviews/${gameID}`)
+    fetch(`http://localhost:3000/reviews/${gameID}`)
       .then(response => response.json())
       .then(reviews => this.setState({ reviews }));
   }
