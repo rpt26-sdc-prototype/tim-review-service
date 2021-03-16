@@ -27,6 +27,7 @@ var read = (gameID, cb) => {
           reviewsGiven: results[i].reviewsGiven,
           playtime: results[i].playtime,
           productActivation: results[i].productActivation,
+          gamesOwned: results[i].gamesOwned
         });
       }
 

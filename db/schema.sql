@@ -13,6 +13,7 @@ CREATE TABLE users (
   reviewsGiven INTEGER,
   playtime INTEGER,
   productActivation INTEGER,
+  gamesOwned INTEGER,
   PRIMARY KEY (ID)
 );
 

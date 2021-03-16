@@ -24,7 +24,7 @@ var makeEverythingWait = () => {
     var userTheme = random.generateInbetweenSync(10)
     var steamLevel = random.generateInbetweenSync(100)
     var reviewsGiven = random.generateInbetweenSync(20)
-    var gamesOwned = random.generateInbetweenSync(25)
+    var gamesOwned = random.generateInbetweenSync(125)
     var playTime = random.generateInbetweenSync(80)
     var activation = random.generateInbetweenSync(2)
 
@@ -35,7 +35,8 @@ var makeEverythingWait = () => {
       steamLevel,
       reviewsGiven,
       playtime,
-      productActivation
+      productActivation,
+      gamesOwned
       ) values (
         '${username}',
         '${profileLink}',
@@ -43,7 +44,8 @@ var makeEverythingWait = () => {
         '${steamLevel}',
         '${reviewsGiven}',
         '${playTime}',
-        '${activation}'
+        '${activation}',
+        '${gamesOwned}'
         )`)
   }
 
