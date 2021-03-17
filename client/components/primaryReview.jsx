@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import React from 'react';
+import FeedbackCollectorComponent from './FeedbackCollectorComponent.jsx';
 
-const Title = styled.div`
-  /* color: #c1dbf4; */
-  color: black;
-  font-size: 13px;
-  font-family: "Motiva Sans", Sans-serif;
-  font-weight: bold;
-  padding-left: 5px;
-`;
+// const Title = styled.div`
+//   /* color: #c1dbf4; */
+//   color: black;
+//   font-size: 13px;
+//   font-family: "Motiva Sans", Sans-serif;
+//   font-weight: bold;
+//   padding-left: 5px;
+// `;
 
 const ReviewWrapper = styled.div`
   padding-left: 5px;
@@ -19,8 +20,8 @@ const ReviewWrapper = styled.div`
   padding-bottom: 0px;
   margin-bottom: 20px;
   display: grid;
-  width: 560px;
-  grid-template-columns: 30px 150px 30px 320px 20px;
+  width: 600px;
+  grid-template-columns: 30px 180px 30px 320px 40px;
   gird-template-rows: 20px 20px auto auto auto auto auto auto auto;
 `;
 
@@ -106,6 +107,13 @@ const ReviewText = styled.div`
   overflow: hidden;
 `;
 
+const PrimaryReviewDatePosted = styled.div`
+  grid-column-start: 3;
+  grid-row-start: 4;
+  grid-column-end: span 3;
+
+`;
+
 const HelpfulMessage = styled.div`
   grid-column-start: 3;
   grid-row-start: 6;
@@ -160,13 +168,7 @@ const CommentContainer = styled.div`
   float-right: 5px;
 `;
 
-const FeedBackOrganizer = styled.div`
-  display: flex;
-`;
 
-const FeedBackOrganizerChild = styled.div`
-display: flex;
-`;
 
 
 var FunnyCountComponent = props => {
@@ -183,33 +185,10 @@ var FunnyCountComponent = props => {
   }
 }
 
-var FeedbackCollectorComponent = props => {
 
 
-  return (
-    <FeedBackOrganizer>
-      <FeedBackOrganizerChild>
-        <img src="https://gifbucket.s3-us-west-1.amazonaws.com/thumb+up.png" />
-        <div>Yes</div>
-      </FeedBackOrganizerChild>
-      <FeedBackOrganizerChild>
-        <img src="https://gifbucket.s3-us-west-1.amazonaws.com/thmb+down.png" />
-        <div>No</div>
-      </FeedBackOrganizerChild>
-      <FeedBackOrganizerChild>
-        <img src="https://gifbucket.s3-us-west-1.amazonaws.com/funny.png" />
-        <div>Funny</div>
-      </FeedBackOrganizerChild>
-      <FeedBackOrganizerChild>
-        <img src="https://gifbucket.s3-us-west-1.amazonaws.com/award.svg" />
-        <div>Award</div>
-      </FeedBackOrganizerChild>
-    </FeedBackOrganizer>
-  )
-}
 
-
-class Review extends React.Component {
+class PrimaryReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -272,7 +251,7 @@ class Review extends React.Component {
           {this.props.review.reviewsGiven} reviews
         </ReviewCount>
         <ThumbsContainer>
-        <img src={imageURL} width="35" height="35" />
+          <img src={imageURL} width="35" height="35" />
         </ThumbsContainer>
         <Recommendation>
           {recommendText}
@@ -283,6 +262,9 @@ class Review extends React.Component {
         <TimePlayed>
           {this.props.review.playtime} hrs on record
         </TimePlayed>
+        <PrimaryReviewDatePosted>
+          posted {this.props.review.creationDate} seconds ago
+        </PrimaryReviewDatePosted>
         <ReviewText>
           {reviewText}
         </ReviewText>
@@ -315,4 +297,4 @@ class Review extends React.Component {
   }
 }
 
-export default Review;
+export default PrimaryReview;
