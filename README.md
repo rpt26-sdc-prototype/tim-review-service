@@ -4,10 +4,10 @@
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/rpt26-fec-pathfinder/tim-proxy
+  - https://github.com/rpt26-fec-pathfinder/anthony-photo-gallery-service
+  - https://github.com/rpt26-fec-pathfinder/james-metadata-service
+  - https://github.com/rpt26-fec-pathfinder/calvin-more-like-this-service
 
 ## Table of Contents
 
@@ -30,10 +30,13 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 ### Installing Dependencies
 
+The database filling script will need to be edited if your mysql login is not -u root w/ no password
+
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+mysql -u root < db/schema.sql
+node db/dbFiller.js
 ```
 

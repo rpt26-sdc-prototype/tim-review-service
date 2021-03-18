@@ -24,4 +24,6 @@ import ReviewApp from './components/reviewApp.jsx'
 //   document.getElementById('reviewApp')
 // );
 
+window.ReviewApp = ReviewApp;
+
 ReactDOM.render(<ReviewApp/>, document.getElementById('reviewApp'));
