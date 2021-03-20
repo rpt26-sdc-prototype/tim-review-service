@@ -8,8 +8,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "test": "mocha spec",
-    "jestTest": "jest --detectOpenHandles ./test",
+    "mochatest": "mocha spec",
+    "test": "jest --detectOpenHandles ./test",
     "start": "nodemon server/index.js",
     "react-dev": "webpack --mode development --watch"
   },
@@ -37,8 +37,8 @@
     "username-generator": "^1.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.8",
-    "@babel/preset-env": "^7.13.9",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-loader": "^8.2.2",

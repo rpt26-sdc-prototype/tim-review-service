@@ -1,7 +1,11 @@
 const app = require('../server/app');
 const supertest = require("supertest");
 const request = supertest(app);
-// var db = require('../db');
+var db = require('../db');
+
+afterAll(() => {
+  db.end()
+})
 
 describe('GET REQUEST FOR VALID ROUTE', () =>{
 
@@ -60,3 +64,5 @@ describe('GET REQUEST FOR INVALID ROUTE', () =>{
     done();
   });
 });
+
+

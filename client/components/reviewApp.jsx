@@ -5,7 +5,7 @@ import PrimaryReviewList from './primaryReviewList.jsx';
 import SecondaryReviewList from './secondaryReviewList.jsx';
 
 const ReviewAppContainer = styled.div`
-  border-style: solid;
+  border-style: none;
   margin-left: auto;
   margin-right: auto;
   display: grid;
@@ -19,11 +19,22 @@ const ReviewAppContainer = styled.div`
 const Title = styled.div`
   grid-column-start: 1;
   grid-row-start: 1;
+  font-family: "Motiva Sans", Sans-serif;
+  font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 2px;
 `;
 
 const OverallReviews = styled.div`
   grid-column-start: 1;
   grid-row-start: 2;
+  background-color: rgb(42, 71, 94);
+  font-family: "Motiva Sans", Sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #e5e5e5;
 `;
 
 const ReviewStatistics = styled.div`
@@ -31,11 +42,17 @@ const ReviewStatistics = styled.div`
 `;
 
 const Rating = styled.div`
-
+  color: #66C0F4;
+  font-family: "Motiva Sans", Sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 9px;
 `;
 
 const ReviewCount = styled.div`
-
+  color: #8ba6b6;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
 `;
 
 const Graph = styled.div`
@@ -48,22 +65,45 @@ const FilteringOptions = styled.div`
   grid-column-start: 1;
   grid-row-start: 5;
   grid-column-end: span 2;
+  background-color: rgb(31, 47, 66)
+  text-transform: uppercase;
+    font-size: 10px;
+    color: #4582a5;
+    padding: 10px;
+    padding-right: 20px;
+    cursor: pointer;
 `;
 
 const CurrentFilters = styled.div`
   grid-column-start: 1;
   grid-row-start: 6;
   grid-column-end: span 2;
+
+  font-family: "Motiva Sans", Sans-serif;
+    font-weight: normal;
+    text-transform: none;
+    font-size: 15px;
+    color: #c6d4df;
+    padding-bottom: 5px;
+    display: inline-block;
+    margin-right: 5px;
 `;
 
 const RestulCount = styled.div`
   grid-column-start: 1;
   grid-row-start: 7;
+  color: #c6d4df;
 `;
 
 const PrimaryFilterResults = styled.div`
   grid-column-start: 1;
   grid-row-start: 8;
+  font-family: "Motiva Sans", Sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 2px;
 `;
 
 const PrimaryReviewContainer = styled.div`
@@ -76,6 +116,12 @@ const RecentReviews = styled.div`
   grid-column-start: 2;
   grid-row-start: 2;
   padding-left: 5px;
+  background-color: rgb(64, 100, 126);
+  font-family: "Motiva Sans", Sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #e5e5e5;
 `;
 
 const RecentStatistics = styled.div`
@@ -83,17 +129,30 @@ const RecentStatistics = styled.div`
 `;
 
 const RecentRating = styled.div`
+color: #66C0F4;
+  font-family: "Motiva Sans", Sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 9px;
 
 `;
 
 const RecentReviewCount = styled.div`
-
+  color: #8ba6b6;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
 `;
 
 const SecondaryReviewResults = styled.div`
   grid-column-start: 2;
   grid-row-start: 8;
   padding-left: 5px;
+  font-family: "Motiva Sans", Sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    letter-spacing: 2px;
 `;
 
 const SecondaryReviewContainer = styled.div`
@@ -119,7 +178,7 @@ class ReviewApp extends React.Component {
     let gameID = splitArr[splitArr.length - 1];
     console.log(gameID);
 
-    fetch(`http://localhost:4051/reviews/${gameID}`)
+    fetch(`http://localhost:3000/reviews/${gameID}`)
       .then(response => response.json())
       .then(reviews => this.setState({ reviews }));
   }
