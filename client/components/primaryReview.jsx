@@ -13,8 +13,8 @@ import FeedbackCollectorComponent from './FeedbackCollectorComponent.jsx';
 
 const ReviewWrapper = styled.div`
   padding-left: 5px;
-  background: papayawhip;
-  border-style: solid;
+  background-color: rgb(21, 32, 45);
+  border-style: none;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 0px;
@@ -28,7 +28,7 @@ const ReviewWrapper = styled.div`
 const UserName = styled.div`
   grid-column-start: 2;
   grid-row-start: 1;
-  color: black;
+  color: #c1dbf4;
   font-size: 13px;
   font-family: "Motiva Sans", Sans-serif;
   font-weight: bold;
@@ -46,6 +46,7 @@ const ProductCount = styled.div`
   grid-row-start: 2;
   font-size: 11px;
   padding-left: 10px;
+  color: #c1dbf4;
 `;
 const ReviewCount = styled.div`
   grid-column-start: 1;
@@ -53,6 +54,7 @@ const ReviewCount = styled.div`
   grid-column-end: span 2;
   font-size: 11px;
   padding-left: 5px;
+  color: #c1dbf4;
 `;
 
 const ThumbsContainer = styled.div`
@@ -66,11 +68,12 @@ const Recommendation = styled.div`
   grid-row-start: 1;
   padding-left: 10px;
   font-size: 16px;
-    /* color: #d6d7d8; */
+    color: #d6d7d8;
 
   font-family: "Motiva Sans", Sans-serif;
   font-weight: normal;
   line-height: 19px;
+  background-color: rgb(17, 25, 36);
 `;
 
 const SteamIcon = styled.div`
@@ -79,6 +82,7 @@ const SteamIcon = styled.div`
   grid-row-end: span 2;
   padding-top: 5px;
   justify-self: end;
+  background-color: rgb(17, 25, 36);
 `;
 
 const TimePlayed = styled.div`
@@ -89,8 +93,9 @@ const TimePlayed = styled.div`
   font-weight: 300;
   font-size: 11px;
   line-height: 15px;
-  /* color: #8091a2; */
-  opacity: 0.6;
+  color: #8091a2;
+  opacity: 1;
+  background-color: rgb(17, 25, 36);
 `;
 
 const ReviewText = styled.div`
@@ -102,7 +107,7 @@ const ReviewText = styled.div`
   font-weight: normal;
   font-size: 13px;
   line-height: 17px;
-  /* color: #acb2b8; */
+  color: #acb2b8;
   overflow-wrap: break-word;
   overflow: hidden;
 `;
@@ -111,6 +116,9 @@ const PrimaryReviewDatePosted = styled.div`
   grid-column-start: 3;
   grid-row-start: 4;
   grid-column-end: span 3;
+  color: #8091a2;
+    font-size: 12px;
+    opacity: 0.6;
 
 `;
 
@@ -120,7 +128,7 @@ const HelpfulMessage = styled.div`
   grid-column-end: span 2;
   display: inline-block;
     margin-right: 9px;
-    /* color: #8091a2; */
+    color: #8091a2;
     font-size: 12px;
     opacity: 0.6;
 `;
@@ -131,7 +139,7 @@ const HelpfulButtons = styled.div`
   grid-column-end: span 2;
   display: inline-block;
     margin-right: 9px;
-    /* color: #8091a2; */
+    color: #8091a2;
     font-size: 12px;
     opacity: 0.6;
 `;
@@ -142,7 +150,7 @@ const HelpfulCounts = styled.div`
   grid-column-end: span 2;
   display: inline-block;
     margin-right: 9px;
-    /* color: #8091a2; */
+    color: #8091a2;
     font-size: 12px;
     opacity: 0.6;
 `;
@@ -153,7 +161,7 @@ const FunnyCount = styled.div`
   grid-column-end: span 2;
   display: inline-block;
     margin-right: 9px;
-    /* color: #8091a2; */
+    color: #8091a2;
     font-size: 12px;
     opacity: 0.6;
 `;

@@ -3,8 +3,8 @@ import React from 'react';
 import FeedbackCollectorComponent from './FeedbackCollectorComponent.jsx';
 
 const SecondaryReviewWrapper = styled.div`
-  background: #fdd593;
-  border-style: solid;
+  background-color: rgb(31, 46, 65)
+  border-style: none;
   margin-bottom: 20px;
   display:grid;
   width: 340;
@@ -21,11 +21,16 @@ const SecondaryThumb = styled.div`
 const SecondaryUserName = styled.div`
   grid-column-start: 2;
   grid-row-start: 1;
+  color: #819db8;
 `;
 
 const SecondaryTimePlayed = styled.div`
   grid-column-start: 3;
   grid-row-start: 1;
+  color: #8091a2;
+    text-transform: uppercase;
+    font-size: 10px;
+    opacity: 0.5;
 `;
 
 const SecondarySteamIcon = styled.div`
@@ -37,24 +42,36 @@ const SecondaryReviewDatePosted = styled.div`
   grid-column-start: 1;
   grid-row-start: 2;
   grid-column-end: span 4;
+  color: #8091a2;
+    font-size: 12px;
+    opacity: 0.6;
 `;
 
 const SecondaryReviewText = styled.div`
   grid-column-start: 1;
   grid-row-start: 3;
   grid-column-end: span 4;
+  color: #9fb4c9;
 `;
 
 const SecondaryHelpfulMessage = styled.div`
   grid-column-start: 1;
   grid-row-start: 4;
   grid-column-end: span 4;
+  color: #8091a2;
+    font-size: 12px;
+    opacity: 0.6;
 `;
 
 const SecondaryHelpfulButtons = styled.div`
   grid-column-start: 1;
   grid-row-start: 5;
   grid-column-end: span 4;
+  display: inline-block;
+    margin-right: 9px;
+    color: #8091a2;
+    font-size: 12px;
+    opacity: 0.6;
 `;
 
 class SecondaryReview extends React.Component {
