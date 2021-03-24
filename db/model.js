@@ -2,7 +2,7 @@ var db = require('./index.js');
 
 var read = (gameID, cb) => {
 
-  db.query(`select * from reviews inner join users on users.ID = reviews.userID where reviews.game = ${gameID}`, (error, results, fields) => {
+  db.query(`select * from reviews inner join users on users.ID = reviews.userID where reviews.game = ${gameID} order by reviews.creationDate DESC`, (error, results, fields) => {
     if (error) {
       throw error;
     } else {
@@ -17,6 +17,7 @@ var read = (gameID, cb) => {
           recommended: results[i].recommended,
           helpfulCount: results[i].helpfulCount,
           notHelpfulCount: results[i].notHelpfulCount,
+          helpfulScore: results[i].helpfulScore,
           funnyCount: results[i].funnyCount,
           earlyAccess: results[i].earlyAccess,
           awards: results[i].awards,

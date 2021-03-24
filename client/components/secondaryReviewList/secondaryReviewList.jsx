@@ -1,5 +1,5 @@
 import React from 'react';
-import SecondaryReview from './secondaryReview.jsx';
+import SecondaryReview from '../secondaryReview/secondaryReview.jsx';
 
 var SecondaryReviewList = props => {
 

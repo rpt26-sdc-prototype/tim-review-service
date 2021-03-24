@@ -28,6 +28,7 @@ CREATE TABLE reviews (
   recommended INTEGER,
   helpfulCount INTEGER,
   notHelpfulCount INTEGER,
+  helpfulScore INTEGER,
   funnyCount INTEGER,
   earlyAccess INTEGER,
   awards INTEGER,

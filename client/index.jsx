@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import ReviewApp from './components/reviewApp.jsx'
+import ReviewApp from './components/reviewApp/reviewApp.jsx'
 
 //HOW TO USE REACT-ROUTER-DOM, might use in proxy
 // import {
@@ -26,4 +26,4 @@ import ReviewApp from './components/reviewApp.jsx'
 
 window.ReviewApp = ReviewApp;
 
-ReactDOM.render(<ReviewApp/>, document.getElementById('reviewApp'));
+// ReactDOM.render(<ReviewApp/>, document.getElementById('reviewApp'));

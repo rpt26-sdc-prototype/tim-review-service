@@ -1,5 +1,5 @@
 import React from 'react';
-import PrimaryReview from './primaryReview.jsx';
+import PrimaryReview from '../primaryReview/primaryReview.jsx';
 
 var PrimaryReviewList = props => {
 
