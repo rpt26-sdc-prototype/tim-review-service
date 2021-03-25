@@ -1,16 +1,9 @@
-import styled from 'styled-components';
-import React from 'react';
-
-const FeedBackOrganizer = styled.div`
-  display: flex;
-`;
-
-const FeedBackOrganizerChild = styled.div`
-display: flex;
-`;
+import {
+  FeedBackOrganizer,
+  FeedBackOrganizerChild
+} from './feedbackCollectorComponent.styles.jsx'
 
 var FeedbackCollectorComponent = props => {
-
 
   return (
     <FeedBackOrganizer>

@@ -1,7 +1,9 @@
 import React from 'react';
 import enzyme from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import ReviewApp from '../client/components/reviewApp';
+import styled from 'styled-components'
+import ReviewApp from '../client/components/reviewApp/reviewApp';
+
 
 enzyme.configure({ adapter: new Adapter() });
 

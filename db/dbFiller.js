@@ -54,10 +54,13 @@ var makeEverythingWait = () => {
     var randomUser = random.generateInbetweenSync(250)
     var reviewTextSize = random.generateInbetweenSync(10)
     var reviewText = await lorem.lorem.generateParagraphs(reviewTextSize)
-    var creationDate = (1615265125152 - random.generateInbetweenSync(31536000))
+    var creationDate = (1616535988000 - (random.generateInbetweenSync(31536000000)))
     var positiveReview = random.twoValProb(.1)
-    var helpfulCount = random.generateInbetweenSync(50)
-    var notHelpfulCount = random.threeValProb(.8, .95)
+    var helpfulCount = random.generateInbetweenSync(100)
+    var notHelpfulCount = random.generateInbetweenSync(10)
+
+    var helpfulScore = (helpfulCount / (helpfulCount + notHelpfulCount)) * 100
+
     var funnyCount = random.threeValProb(.7, .8)
     var comments = random.threeValProb(.7, .9)
     var earlyAccess = random.twoValProb(.9)
@@ -72,6 +75,7 @@ var makeEverythingWait = () => {
       recommended,
       helpfulCount,
       notHelpfulCount,
+      helpfulScore,
       funnyCount,
       earlyAccess,
       awards,
@@ -84,6 +88,7 @@ var makeEverythingWait = () => {
         '${positiveReview}',
         '${helpfulCount}',
         '${notHelpfulCount}',
+        '${helpfulScore}',
         '${funnyCount}',
         '${earlyAccess}',
         '${awards}',
