@@ -9,7 +9,6 @@ profilePictures/
 private/
 service1.pem
 .env
-service1.pem
 
 pids
 *.pid
