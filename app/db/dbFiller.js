@@ -5,7 +5,7 @@ var lorem = require('./randomWordGeneration');
 var random = require('./randomMathGeneration')
 
 var fs = require('fs');
-var linkArray = fs.readFileSync(`${__dirname}/../bucketLinks/list.txt`).toString().split('\n');
+var linkArray = fs.readFileSync(`${__dirname}/list.txt`).toString().split('\n');
 
 //limit the number of querys persecond to db
 var makeEverythingWait = () => {
@@ -55,7 +55,7 @@ var makeEverythingWait = () => {
     var reviewTextSize = random.generateInbetweenSync(10)
     var reviewText = await lorem.lorem.generateParagraphs(reviewTextSize)
     var creationDate = (1616535988000 - (random.generateInbetweenSync(31536000000)))
-    var positiveReview = random.twoValProb(.1)
+    var positiveReview = random.twoValProb(.15)
     var helpfulCount = random.generateInbetweenSync(100)
     var notHelpfulCount = random.generateInbetweenSync(10)
 

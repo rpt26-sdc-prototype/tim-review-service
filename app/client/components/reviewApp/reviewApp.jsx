@@ -52,6 +52,7 @@ class ReviewApp extends React.Component {
       .then(reviews => {
         this.setState({ reviews })
         this.addHelpfulnessScore(reviews)
+        this.getOverallReview()
       })
 
   }
@@ -85,11 +86,41 @@ class ReviewApp extends React.Component {
     this.setState({ helpfulReviews: helpfulArrHighestFirst })
   }
 
+  getOverallReview() {
+    let recommendationCount = 0;
+    let recommendationString = '';
+    for (let i = 0; i < this.state.reviews.length; i++) {
+      if (this.state.reviews[i].recommended) {
+        recommendationCount++
+      }
+    }
+    let percentRecommended = recommendationCount / this.state.reviews.length;
+    if (percentRecommended >= .90) {
+      recommendationString = 'Overwhelmingly Positive';
+    } else if (percentRecommended >= .80) {
+      recommendationString = 'Very Positive';
+    } else if (percentRecommended >= .70) {
+      recommendationString = 'Mostly Positive';
+    } else if (percentRecommended >= .40) {
+      recommendationString = 'Mixed';
+    } else if (percentRecommended >= .20) {
+      recommendationString = 'Mostly Negative';
+    } else if (percentRecommended >= .10) {
+      recommendationString = 'Very Negative';
+    } else {
+      recommendationString = 'Overwhelmingly Negative';
+    }
+
+    this.setState({ recommendationString })
+
+  }
+
   render() {
     //conditional render based on width
       //two review columns or 1
 
     //conditional render GET request to server fails
+    console.log(this.state)
 
     return (
       <ReviewAppContainer>
@@ -99,15 +130,15 @@ class ReviewApp extends React.Component {
         <OverallReviews>
           Overall Reviews:
           <ReviewStatistics>
-            <Rating>Very Positive</Rating>
-            <ReviewCount>Total number of reviews</ReviewCount>
+            <Rating>{this.state.recommendationString}</Rating>
+            <ReviewCount>{this.state.reviews.length} reviews</ReviewCount>
           </ReviewStatistics>
         </OverallReviews>
         <RecentReviews>
           Recent Reviews:
           <RecentStatistics>
             <RecentRating>Very Positive</RecentRating>
-            <RecentReviewCount> Total number of reviews</RecentReviewCount>
+            <RecentReviewCount>{this.state.helpfulReviews.length} reviews</RecentReviewCount>
           </RecentStatistics>
         </RecentReviews>
         {this.state.showGraph ? <Graph></Graph> : null}
@@ -141,7 +172,7 @@ class ReviewApp extends React.Component {
           Filters:
         </CurrentFilters>
         <RestulCount>
-          Showing 65,288 reviews that match the filters above ( Very Positive )
+          Showing {this.state.helpfulReviews.length} reviews that match the filters above ( Very Positive )
         </RestulCount>
         <PrimaryFilterResults>
           MOST HELPFUL REVIEWS  IN THE PAST 30 DAYS
