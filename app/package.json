@@ -15,7 +15,8 @@
     "react-dev": "webpack --mode development --watch"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": [ "./test/test-env.js" ]
   },
   "dependencies": {
     "aws-sdk": "^2.856.0",

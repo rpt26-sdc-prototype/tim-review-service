@@ -1,3 +1,5 @@
+// import styled from 'styled-components';
+
 export const ReviewWrapper = styled.div`
   padding-left: 5px;
   background-color: rgb(21, 32, 45);
