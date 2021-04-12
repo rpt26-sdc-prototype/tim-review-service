@@ -124,7 +124,7 @@ class PrimaryReview extends React.Component {
         <HelpfulButtons>
           <FeedbackCollectorComponent />
         </HelpfulButtons>
-        <HelpfulCounts>
+        <HelpfulCounts className="helpfulCount">
           {helpfulCount} people found this helpful
         </HelpfulCounts>
         <FunnyCount>
