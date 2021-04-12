@@ -4,7 +4,7 @@ services:
   sqlcontainer:
     image: mysql:5.7
     restart: always
-    env_file: ./app/.env
+    env_file: ./.env
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: service1
@@ -15,14 +15,15 @@ services:
     volumes:
       - db-config:/etc/mysql
       - db-data:/var/lib/mysql
-      - ./db/backup/files/:/data_backup/data
+      - ./dockerdb/backup/files/:/data_backup/data
 
   app:
     build:
       context: .
-      dockerfile: ./app/Dockerfile
-    image: timdanderson1/fecservice1:1.8
-    env_file: ./app/.env
+      dockerfile: ./Dockerfile
+    image: timdanderson1/fecservice1:2.2
+    restart: always
+    env_file: ./.env
     ports:
       - 4052:4052
     depends_on:
