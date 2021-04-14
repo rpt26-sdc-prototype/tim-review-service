@@ -5,8 +5,6 @@ var PrimaryReviewList = props => {
   let reviewBoolean = true;
   let reviews = [...props.reviews]
 
-  console.log('primary review list')
-
   let i = reviews.length
   if (props.reviewType === 'Positive') {
     while (i--) {
@@ -22,7 +20,20 @@ var PrimaryReviewList = props => {
     }
   }
 
-  console.log(reviews)
+  i = reviews.length
+  if (props.purchaseType === 'Steam Purchases') {
+    while (i--) {
+      if (reviews[i].productActivation === 2) {
+        reviews.splice(i, 1)
+      }
+    }
+  } else if (props.purchaseType === 'Other') {
+    while (i--) {
+      if (reviews[i].productActivation === 1) {
+        reviews.splice(i, 1)
+      }
+    }
+  }
 
   return (
 

@@ -30,7 +30,6 @@ var ReviewTypeFilter = props => {
           </form>
         </TypeFlyoutMenu>
       </ReviewTypeContainer>
-
     </div>
   )
 }

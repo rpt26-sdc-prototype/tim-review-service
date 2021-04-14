@@ -71,6 +71,9 @@ class PrimaryReview extends React.Component {
       reviewText = reviewText.slice(0, 499);
     }
 
+    let purchaseIco = ""
+    this.props.review.productActivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco =  "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
+
 
     var imageURL = 'https://gifbucket.s3-us-west-1.amazonaws.com/icon_thumbsUp_v6.png';
     var recommendText = 'Recommended'
@@ -107,7 +110,7 @@ class PrimaryReview extends React.Component {
           {recommendText}
         </Recommendation>
         <SteamIcon>
-          <img src="https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" />
+          <img src={purchaseIco} />
         </SteamIcon>
         <TimePlayed>
           {this.props.review.playtime} hrs on record

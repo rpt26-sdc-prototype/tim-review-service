@@ -33,6 +33,9 @@ class SecondaryReview extends React.Component {
       userName = userName.slice(0, 16) + '...'
     }
 
+    let purchaseIco = ""
+    this.props.review.productActivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco =  "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
+
     var imageURL = 'https://gifbucket.s3-us-west-1.amazonaws.com/icon_thumbsUp_v6.png';
     var recommendText = 'Recommended'
     if (this.props.review.recommended === 0) {
@@ -55,7 +58,7 @@ class SecondaryReview extends React.Component {
         {this.props.review.playtime} hrs
       </SecondaryTimePlayed>
       <SecondarySteamIcon>
-        <img src="https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" />
+        <img src={purchaseIco} />
       </SecondarySteamIcon>
       <SecondaryReviewDatePosted>
         posted {postedDateString}
