@@ -1,5 +1,7 @@
 import PrimaryReviewList from '../primaryReviewList/primaryReviewList.jsx';
 import SecondaryReviewList from '../secondaryReviewList/secondaryReviewList.jsx';
+import ReviewTypeFilter from '../filters/reviewTypeFilter/reviewTypeFilter.jsx';
+import Pill from '../filters/pill.jsx'
 import {
   ReviewAppContainer,
   Title,
@@ -36,16 +38,19 @@ class ReviewApp extends React.Component {
       filter: [],
       reviews: [],
       helpfulReviews: [],
-      showGraph: false
+      showGraph: false,
+      reviewType: 'All',
+      purchaseType: 'All',
+      totalReviewCount: 0,
+      positiveReviewCount: 0,
+      negativeReviewCount: 0
     };
   }
 
   componentDidMount() {
-    console.log('component did mount');
     let currentURL = window.location.href;
     let splitArr = currentURL.split('/');
     let gameID = splitArr[splitArr.length - 1];
-    // console.log(gameID);
 
     fetch(`/reviews/${gameID}`)
       .then(response => response.json())
@@ -89,6 +94,7 @@ class ReviewApp extends React.Component {
   getOverallReview() {
     let recommendationCount = 0;
     let recommendationString = '';
+    let totalReviewCount = this.state.reviews.length
     for (let i = 0; i < this.state.reviews.length; i++) {
       if (this.state.reviews[i].recommended) {
         recommendationCount++
@@ -111,8 +117,33 @@ class ReviewApp extends React.Component {
       recommendationString = 'Overwhelmingly Negative';
     }
 
-    this.setState({ recommendationString })
+    let negativeReviewCount = totalReviewCount - recommendationCount;
+    this.setState({
+       recommendationString,
+       totalReviewCount,
+       positiveReviewCount: recommendationCount,
+       negativeReviewCount
+       })
+  }
 
+  reviewFilterChange(value, name) {
+    console.log(value)
+    console.log(name)
+    if (name === 'reviewType') {
+      if (value === 'All') {
+        this.setState({ reviewType: 'All' })
+      } else if (value === 'Positive') {
+        this.setState({ reviewType: 'Positive' })
+      }else if (value === 'Negative') {
+        this.setState({ reviewType: 'Negative' })
+      }
+    }
+  }
+
+  filterReset(event) {
+    if (event.target.innerText[0] === 'P' || event.target.innerText[0] === 'N') {
+      this.setState({ reviewType: 'All' })
+    }
   }
 
   render() {
@@ -121,6 +152,12 @@ class ReviewApp extends React.Component {
 
     //conditional render GET request to server fails
     console.log(this.state)
+
+    var reviewCountObj = {
+      All: this.state.totalReviewCount,
+      Positive: this.state.positiveReviewCount,
+      Negative: this.state.negativeReviewCount
+    }
 
     return (
       <ReviewAppContainer>
@@ -144,7 +181,7 @@ class ReviewApp extends React.Component {
         {this.state.showGraph ? <Graph></Graph> : null}
         <FilteringOptions>
           <ReviewType>
-            REVIEW TYPE
+            <ReviewTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)}/>
           </ReviewType>
           <PurchaseType>
             PURCHASE TYPE
@@ -170,6 +207,9 @@ class ReviewApp extends React.Component {
         </FilteringOptions>
         <CurrentFilters>
           Filters:
+          {/* {this.state.reviewType === 'Positive' ? <span> Positive &#9447;</span> : null } */}
+          {this.state.reviewType === 'Positive' ? <Pill filterReset={this.filterReset.bind(this)} reviewType={this.state.reviewType}/> : null }
+          {this.state.reviewType === 'Negative' ? <Pill filterReset={this.filterReset.bind(this)} reviewType={this.state.reviewType}/> : null }
         </CurrentFilters>
         <RestulCount>
           Showing {this.state.helpfulReviews.length} reviews that match the filters above ( Very Positive )
@@ -178,7 +218,7 @@ class ReviewApp extends React.Component {
           MOST HELPFUL REVIEWS  IN THE PAST 30 DAYS
         </PrimaryFilterResults>
         <PrimaryReviewContainer>
-          <PrimaryReviewList reviews={this.state.helpfulReviews}/>
+          <PrimaryReviewList reviewType={this.state.reviewType} reviews={this.state.helpfulReviews}/>
         </PrimaryReviewContainer>
         <SecondaryReviewResults>
           RECENTLY POSTED

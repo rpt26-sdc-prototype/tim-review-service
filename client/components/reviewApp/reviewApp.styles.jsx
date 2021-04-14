@@ -111,6 +111,7 @@ export const CurrentFilters = styled.div`
   grid-column-start: 1;
   grid-row-start: 6;
   grid-column-end: span 2;
+  display: flex;
 
   font-family: "Motiva Sans", Sans-serif;
     font-weight: normal;
