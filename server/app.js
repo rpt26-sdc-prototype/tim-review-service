@@ -2,7 +2,6 @@ const express = require('express');
 var cors = require('cors');
 const app = express();
 const model = require('../db/model.js');
-// const port = 3001;
 var morgan = require('morgan');
 var path = require('path');
 
@@ -32,9 +31,5 @@ app.get('/reviews/:id', (req, res) => {
 app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('public/index.html'));
 });
-
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
 
 module.exports = app;

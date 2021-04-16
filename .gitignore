@@ -13,6 +13,9 @@ service1.pem
 notes.txt
 dockerdb
 
+
+aws-keys.json
+
 pids
 *.pid
 logs
@@ -31,4 +34,7 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
-
+public/
+spec/
+ignore/
+public/bundle.js

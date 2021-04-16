@@ -14,7 +14,6 @@ var Pill = props => {
     <PillContainer onClick={props.filterReset}>
       {props.filterType}  &#9447;
     </PillContainer>
-
   )
 }
 

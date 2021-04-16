@@ -47,8 +47,13 @@ class ReviewApp extends React.Component {
       purchaseType: 'All',
       totalReviewCount: 0,
       positiveReviewCount: 0,
-      negativeReviewCount: 0
+      negativeReviewCount: 0,
+      filteredReviewCount: 0
     };
+  }
+
+  filteredReviewCountLifter(filteredReviewCount) {
+    this.setState({ filteredReviewCount })
   }
 
   componentDidMount() {
@@ -176,10 +181,10 @@ class ReviewApp extends React.Component {
 
     return (
       <ReviewAppContainer>
-        <Title>
+        <Title className='title'>
           Customer Reviews
         </Title>
-        <OverallReviews>
+        <OverallReviews className='overallReviews'>
           Overall Reviews:
           <ReviewStatistics>
             <Rating>{this.state.recommendationString}</Rating>
@@ -187,7 +192,7 @@ class ReviewApp extends React.Component {
             <img height='12px' width='12px'src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
           </ReviewStatistics>
         </OverallReviews>
-        <RecentReviews>
+        <RecentReviews className='recentReviews'>
           Recent Reviews:
           <RecentStatistics>
             <RecentRating>Very Positive</RecentRating>
@@ -206,7 +211,7 @@ class ReviewApp extends React.Component {
           <LanguageType>
             <LanguageTypeFilter />
           </LanguageType>
-          <DateRange>
+          <DateRange className='dateRange'>
             DATE RANGE <DownArrow>&#9662;</DownArrow>
           </DateRange>
           <PlayTime>
@@ -217,7 +222,7 @@ class ReviewApp extends React.Component {
           </DisplayAsType>
         </FilteringOptions>
         <CurrentFilters>
-          <FiltersDiv>
+          <FiltersDiv className='filtersDiv'>
             Filters:
           </FiltersDiv>
           {/* {this.state.reviewType === 'Positive' ? <span> Positive &#9447;</span> : null } */}
@@ -227,13 +232,13 @@ class ReviewApp extends React.Component {
           {this.state.purchaseType === 'Other' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType}/> : null }
         </CurrentFilters>
         <RestulCount>
-          Showing {this.state.helpfulReviews.length} reviews that match the filters above ( Very Positive )
+          Showing reviews that match the filters above  ( Very Positive )
         </RestulCount>
         <PrimaryFilterResults>
           MOST HELPFUL REVIEWS  IN THE PAST 30 DAYS
         </PrimaryFilterResults>
         <PrimaryReviewContainer>
-          <PrimaryReviewList purchaseType={this.state.purchaseType} reviewType={this.state.reviewType} reviews={this.state.helpfulReviews}/>
+          <PrimaryReviewList filteredReviewCountLifter={this.filteredReviewCountLifter.bind(this)} purchaseType={this.state.purchaseType} reviewType={this.state.reviewType} reviews={this.state.helpfulReviews}/>
         </PrimaryReviewContainer>
         <SecondaryReviewResults>
           RECENTLY POSTED

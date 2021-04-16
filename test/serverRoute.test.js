@@ -10,9 +10,7 @@ afterAll(() => {
 describe('GET REQUEST FOR VALID ROUTE', () =>{
 
   test('game ID 1', async (done) => {
-
     var reviews = await request.get('/reviews/1');
-
     expect(reviews.status).toBe(200);
     expect(Array.isArray(reviews.body)).toBe(true);
 
@@ -56,11 +54,8 @@ describe('GET REQUEST FOR VALID ROUTE', () =>{
 describe('GET REQUEST FOR INVALID ROUTE', () =>{
 
   test('game ID 101', async (done) => {
-
     var reviews = await request.get('/reviews/101');
-
     expect(reviews.status).toBe(404);
-
     done();
   });
 });
