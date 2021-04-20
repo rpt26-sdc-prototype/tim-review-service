@@ -17,15 +17,12 @@ var PurchaseTypeFilter = props => {
           <form>
             <input type='radio' value='All' name='purchaseType' defaultChecked onChange={ e => {props.reviewFilterChange(e.target.value, 'purchaseType')}}/>
             <FlyoutMenuText>All</FlyoutMenuText>
-            <FlyoutMenuStat>{`()`}</FlyoutMenuStat>
             <br></br>
             <input type='radio' value='Steam Purchases' name='purchaseType' onChange={ e => {props.reviewFilterChange(e.target.value, 'purchaseType')}}/>
             <FlyoutMenuText>Steam Purchases</FlyoutMenuText>
-            <FlyoutMenuStat>{`()`}</FlyoutMenuStat>
             <br></br>
             <input type='radio' value='Other' name='purchaseType' onChange={ e => {props.reviewFilterChange(e.target.value, 'purchaseType')}}/>
             <FlyoutMenuText>Other</FlyoutMenuText>
-            <FlyoutMenuStat>{`()`}</FlyoutMenuStat>
           </form>
         </PurchaseTypeFlyoutMenu>
       </PurchaseTypeContainer>

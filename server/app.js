@@ -15,12 +15,9 @@ app.get('/hi', (req, res) => {
 });
 
 app.get('/reviews/:id', (req, res) => {
-  console.log(req.params.id);
   if ((req.params.id > 0) && (req.params.id < 101)) {
-
     model.read(req.params.id, (error, data) => {
       if (error) { console.log(error); }
-      console.log(`the length of the array is ${data.length}`);
       res.send(data);
     });
   } else {
