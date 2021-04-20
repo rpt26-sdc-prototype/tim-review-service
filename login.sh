@@ -1,1 +1,0 @@
-ssh -i "/Users/timanderson/work/tim-review-service/service1.pem" ubuntu@ec2-13-52-187-145.us-west-1.compute.amazonaws.com
