@@ -33,13 +33,8 @@ var read = (gameID, cb) => {
       }
 
       cb(null, returnArray);
-      // db.destroy()
     }
   });
 };
-
-// console.log(db.destroy)
-// console.log(process.env.NODE_ENV)
-
 
 module.exports.read = read;

@@ -1,5 +1,9 @@
 import PrimaryReviewList from '../primaryReviewList/primaryReviewList.jsx';
 import SecondaryReviewList from '../secondaryReviewList/secondaryReviewList.jsx';
+import ReviewTypeFilter from '../filters/reviewTypeFilter/reviewTypeFilter.jsx';
+import PurchaseTypeFilter from '../filters/purchaseTypeFilter/purchaseTypeFilter.jsx'
+import LanguageTypeFilter from '../filters/languageFilter/languageFilter.jsx'
+import Pill from '../filters/pill.jsx'
 import {
   ReviewAppContainer,
   Title,
@@ -26,7 +30,9 @@ import {
   RecentRating,
   RecentReviewCount,
   SecondaryReviewResults,
-  SecondaryReviewContainer
+  SecondaryReviewContainer,
+  FiltersDiv,
+  DownArrow
 } from './reviewApp.styles.jsx';
 
 class ReviewApp extends React.Component {
@@ -36,16 +42,24 @@ class ReviewApp extends React.Component {
       filter: [],
       reviews: [],
       helpfulReviews: [],
-      showGraph: false
+      showGraph: false,
+      reviewType: 'All',
+      purchaseType: 'All',
+      totalReviewCount: 0,
+      positiveReviewCount: 0,
+      negativeReviewCount: 0,
+      filteredReviewCount: 0
     };
   }
 
+  filteredReviewCountLifter(filteredReviewCount) {
+    this.setState({ filteredReviewCount })
+  }
+
   componentDidMount() {
-    console.log('component did mount');
     let currentURL = window.location.href;
     let splitArr = currentURL.split('/');
     let gameID = splitArr[splitArr.length - 1];
-    // console.log(gameID);
 
     fetch(`/reviews/${gameID}`)
       .then(response => response.json())
@@ -89,6 +103,7 @@ class ReviewApp extends React.Component {
   getOverallReview() {
     let recommendationCount = 0;
     let recommendationString = '';
+    let totalReviewCount = this.state.reviews.length
     for (let i = 0; i < this.state.reviews.length; i++) {
       if (this.state.reviews[i].recommended) {
         recommendationCount++
@@ -111,8 +126,44 @@ class ReviewApp extends React.Component {
       recommendationString = 'Overwhelmingly Negative';
     }
 
-    this.setState({ recommendationString })
+    let negativeReviewCount = totalReviewCount - recommendationCount;
+    this.setState({
+       recommendationString,
+       totalReviewCount,
+       positiveReviewCount: recommendationCount,
+       negativeReviewCount
+       })
+  }
 
+  reviewFilterChange(value, name) {
+    console.log(value)
+    console.log(name)
+    if (name === 'reviewType') {
+      if (value === 'All') {
+        this.setState({ reviewType: 'All' })
+      } else if (value === 'Positive') {
+        this.setState({ reviewType: 'Positive' })
+      }else if (value === 'Negative') {
+        this.setState({ reviewType: 'Negative' })
+      }
+    } else if (name === 'purchaseType') {
+      if (value === 'All') {
+        this.setState({ purchaseType: 'All' })
+      } else if (value === 'Steam Purchases') {
+        this.setState({ purchaseType: 'Steam Purchases' })
+      } else if (value === 'Other') {
+        this.setState({ purchaseType: 'Other' })
+      }
+    }
+  }
+
+  filterReset(event) {
+    //remove Positive, Negative, Steam Purchase, Other Purchase filters
+    if (event.target.innerText[0] === 'P' || event.target.innerText[0] === 'N') {
+      this.setState({ reviewType: 'All' })
+    } else if (event.target.innerText[0] === 'S' || event.target.innerText[0] === 'O') {
+      this.setState({ purchaseType: 'All' })
+    }
   }
 
   render() {
@@ -122,63 +173,72 @@ class ReviewApp extends React.Component {
     //conditional render GET request to server fails
     console.log(this.state)
 
+    var reviewCountObj = {
+      All: this.state.totalReviewCount,
+      Positive: this.state.positiveReviewCount,
+      Negative: this.state.negativeReviewCount
+    }
+
     return (
       <ReviewAppContainer>
-        <Title>
+        <Title className='title'>
           Customer Reviews
         </Title>
-        <OverallReviews>
+        <OverallReviews className='overallReviews'>
           Overall Reviews:
           <ReviewStatistics>
             <Rating>{this.state.recommendationString}</Rating>
-            <ReviewCount>{this.state.reviews.length} reviews</ReviewCount>
+            <ReviewCount>{`(${this.state.reviews.length} reviews)`}</ReviewCount>
+            <img height='12px' width='12px'src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
           </ReviewStatistics>
         </OverallReviews>
-        <RecentReviews>
+        <RecentReviews className='recentReviews'>
           Recent Reviews:
           <RecentStatistics>
             <RecentRating>Very Positive</RecentRating>
-            <RecentReviewCount>{this.state.helpfulReviews.length} reviews</RecentReviewCount>
+            <RecentReviewCount>{`(${this.state.helpfulReviews.length} reviews)`}</RecentReviewCount>
+            <img height='12px' width='12px'src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
           </RecentStatistics>
         </RecentReviews>
         {this.state.showGraph ? <Graph></Graph> : null}
-        <FilteringOptions>
+        <FilteringOptions className='filteringOptions'>
           <ReviewType>
-            REVIEW TYPE
+            <ReviewTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)}/>
           </ReviewType>
           <PurchaseType>
-            PURCHASE TYPE
+            <PurchaseTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)}/>
           </PurchaseType>
           <LanguageType>
-            LANGUAGE
+            <LanguageTypeFilter />
           </LanguageType>
-          <DateRange>
-            DATE RANGE
+          <DateRange className='dateRange'>
+            DATE RANGE <DownArrow>&#9662;</DownArrow>
           </DateRange>
           <PlayTime>
-            PLAY TIME
+            PLAY TIME <DownArrow>&#9662;</DownArrow>
           </PlayTime>
           <DisplayAsType>
-            DISPLAY AS:
+            DISPLAY AS: <DownArrow>&#9662;</DownArrow>
           </DisplayAsType>
-          <SummaryDropDown>
-            Summary
-          </SummaryDropDown>
-          <ShowGraph>
-            Show graph
-          </ShowGraph>
         </FilteringOptions>
         <CurrentFilters>
-          Filters:
+          <FiltersDiv className='filtersDiv'>
+            Filters:
+          </FiltersDiv>
+          {/* {this.state.reviewType === 'Positive' ? <span> Positive &#9447;</span> : null } */}
+          {this.state.reviewType === 'Positive' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType}/> : null }
+          {this.state.reviewType === 'Negative' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType}/> : null }
+          {this.state.purchaseType === 'Steam Purchases' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType}/> : null }
+          {this.state.purchaseType === 'Other' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType}/> : null }
         </CurrentFilters>
         <RestulCount>
-          Showing {this.state.helpfulReviews.length} reviews that match the filters above ( Very Positive )
+          Showing reviews that match the filters above  ( Very Positive )
         </RestulCount>
         <PrimaryFilterResults>
           MOST HELPFUL REVIEWS  IN THE PAST 30 DAYS
         </PrimaryFilterResults>
         <PrimaryReviewContainer>
-          <PrimaryReviewList reviews={this.state.helpfulReviews}/>
+          <PrimaryReviewList filteredReviewCountLifter={this.filteredReviewCountLifter.bind(this)} purchaseType={this.state.purchaseType} reviewType={this.state.reviewType} reviews={this.state.helpfulReviews}/>
         </PrimaryReviewContainer>
         <SecondaryReviewResults>
           RECENTLY POSTED

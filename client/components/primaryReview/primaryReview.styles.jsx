@@ -12,6 +12,7 @@ export const ReviewWrapper = styled.div`
   width: 600px;
   grid-template-columns: 30px 180px 30px 320px 40px;
   gird-template-rows: 20px 20px auto auto auto auto auto auto auto;
+  padding-bottom: 15px;
 `;
 
 export const UserName = styled.div`
@@ -72,6 +73,7 @@ export const SteamIcon = styled.div`
   padding-top: 5px;
   justify-self: end;
   background-color: rgb(17, 25, 36);
+  padding-left: 23px;
 `;
 
 export const TimePlayed = styled.div`
@@ -99,6 +101,10 @@ export const ReviewText = styled.div`
   color: #acb2b8;
   overflow-wrap: break-word;
   overflow: hidden;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #8091a2;
+
+
 `;
 
 export const PrimaryReviewDatePosted = styled.div`
@@ -108,6 +114,7 @@ export const PrimaryReviewDatePosted = styled.div`
   color: #8091a2;
   font-size: 12px;
   opacity: 0.6;
+  padding-bottom: 5px;
 
 `;
 
@@ -120,6 +127,7 @@ export const HelpfulMessage = styled.div`
   color: #8091a2;
   font-size: 12px;
   opacity: 0.6;
+  padding-top: 5px;
 `;
 
 export const HelpfulButtons = styled.div`
@@ -131,6 +139,7 @@ export const HelpfulButtons = styled.div`
   color: #8091a2;
   font-size: 12px;
   opacity: 0.6;
+  padding: 5px;
 `;
 
 export const HelpfulCounts = styled.div`
