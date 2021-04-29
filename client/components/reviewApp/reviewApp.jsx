@@ -64,6 +64,7 @@ class ReviewApp extends React.Component {
     fetch(`/reviews/${gameID}`)
       .then(response => response.json())
       .then(reviews => {
+        console.log(reviews);
         this.setState({ reviews })
         this.addHelpfulnessScore(reviews)
         this.getOverallReview()
@@ -136,8 +137,6 @@ class ReviewApp extends React.Component {
   }
 
   reviewFilterChange(value, name) {
-    console.log(value)
-    console.log(name)
     if (name === 'reviewType') {
       if (value === 'All') {
         this.setState({ reviewType: 'All' })
@@ -171,7 +170,6 @@ class ReviewApp extends React.Component {
       //two review columns or 1
 
     //conditional render GET request to server fails
-    console.log(this.state)
 
     var reviewCountObj = {
       All: this.state.totalReviewCount,

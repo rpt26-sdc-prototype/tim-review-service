@@ -1,4 +1,4 @@
-DROP DATABASE service1;
+DROP DATABASE IF EXISTS service1;
 CREATE DATABASE service1;
 USE service1;
 

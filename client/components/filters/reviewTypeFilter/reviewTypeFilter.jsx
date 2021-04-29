@@ -7,9 +7,6 @@ import {
 } from '../filterStyles.jsx'
 
 var ReviewTypeFilter = props => {
-  console.log('development log')
-  console.log(props)
-
   return (
     <div>
       <ReviewTypeContainer>REVIEW TYPE
