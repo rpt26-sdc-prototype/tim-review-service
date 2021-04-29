@@ -37,4 +37,5 @@ public/
 spec/
 ignore/
 public/bundle.js
+
 db/config/config.json
