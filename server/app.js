@@ -13,9 +13,28 @@ app.use(cors());
 
 app.use(express.static('./public'));
 
+// app.get('/test', async (req, res) => {
+//   const test = await AddReview();
+//   res.send('ok');
+// })
+
+// app.get('/userTest', async (req, res) => {
+//   const test = await AddUser();
+//   res.send('mkay');
+// })
+
+// app.get('/getTest', async(req, res) => {
+//   const test = await GetReviews();
+//   res.send(test);
+// })
+
 app.get('/reviews/:gameID', async (req, res) => {
   const { gameID } = req.params;
   if (gameID > 0 && gameID <= 100) {
+    // model.read(gameID, (error, data) => {
+    //   if (error) { console.log(error); }
+    //   res.send(data);
+    // });
     try {
       const reviews = await getReviews(gameID);
       res.send(reviews);
@@ -23,6 +42,9 @@ app.get('/reviews/:gameID', async (req, res) => {
       res.send(err);
     }
   }
+  // else {
+  //   res.status(404).send('Invalid GameID');
+  // }
 });
 
 app.delete('/:id', async (req, res) => {

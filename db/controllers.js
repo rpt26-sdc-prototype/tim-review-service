@@ -53,9 +53,11 @@ module.exports = {
           {
             model: Review,
             where: { game: gameID },
-            attributes: []
-          }
+            as: 'reviews',
+            attributes: [],
+          },
         ],
+        order: [['reviews','creationDate', 'desc']]
       });
       return results;
     } catch (err) {
