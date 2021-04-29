@@ -13,7 +13,6 @@ service1.pem
 notes.txt
 dockerdb
 
-
 aws-keys.json
 
 pids
@@ -38,3 +37,4 @@ public/
 spec/
 ignore/
 public/bundle.js
+db/config/config.json
