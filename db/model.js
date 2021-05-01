@@ -34,9 +34,4 @@ module.exports = {
       }
     });
   },
-  delete: (gameID) => {
-    db.query(`SELECT * FROM reviews INNER JOIN users ON users.ID = reviews.userID WHERE reviews.game = ${gameID} ORDER BY reviews.creationDate DESC`, (err, results, fields) => {
-      console.log(results);
-    });
-  }
 }

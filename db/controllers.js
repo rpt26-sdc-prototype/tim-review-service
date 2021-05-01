@@ -3,24 +3,24 @@ const path = require('path');
 const sequelize = require('./config.js');
 
 module.exports = {
-  test: async () => {
-    try {
-      const { Review, User } = sequelize.models;
-      const reviewTest = await Review.create({ game: 8, userID: 1, reviewText: 'Reconzaince Entry 3' });
-      return reviewTest;
-    } catch (err) {
-      console.log(err)
-    }
-  },
+  // test: async () => {
+  //   try {
+  //     const { Review, User } = sequelize.models;
+  //     const reviewTest = await Review.create({ game: 8, userID: 1, reviewText: 'Reconzaince Entry 3' });
+  //     return reviewTest;
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // },
 
-  userTest: async () => {
-    try {
-      const { Review, User } = sequelize.models;
-      const userTest = await User.create({ userName: 'James' })
-    } catch (err) {
-      console.log(err);
-    }
-  },
+  // userTest: async () => {
+  //   try {
+  //     const { Review, User } = sequelize.models;
+  //     const userTest = await User.create({ userName: 'James' })
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
 
   getGameReviews: async (gameID) => {
     try {
@@ -57,11 +57,12 @@ module.exports = {
             attributes: [],
           },
         ],
-        order: [['reviews','creationDate', 'desc']]
+        order: [['reviews', 'creationDate', 'desc']]
       });
       return results;
     } catch (err) {
       console.log(err);
+      return err;
     }
   }
 };
