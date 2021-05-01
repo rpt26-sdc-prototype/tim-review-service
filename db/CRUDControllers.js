@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const path = require('path');
 const sequelize = require('./config.js');
 
 module.exports = {
@@ -8,8 +7,7 @@ module.exports = {
     try {
       const { Review } = sequelize.models;
       const createdReview = await Review.create(newReviewObj);
-      console.log(createdReview);
-      return createdReview;
+      return 'Created Review!';
     } catch (err) {
       return err;
     }
@@ -20,7 +18,8 @@ module.exports = {
       const { Review } = sequelize.models;
       const result = await Review.findOne({
         where: { id: reviewID }
-      })
+      });
+      console.log(result);
       return result;
     } catch (err) {
       return err;
@@ -35,7 +34,7 @@ module.exports = {
         updateObj,
         { where: { id: reviewID } }
       );
-      return 'Updated!';
+      return 'Updated Review!';
     } catch (err) {
       return err;
     }
@@ -46,7 +45,7 @@ module.exports = {
     try {
       const { Review } = sequelize.models;
       const result = await Review.destroy({ where: { id: reviewID } });
-      return 'Deleted!';
+      return 'Deleted Review!';
     } catch (err) {
       return err;
     }
