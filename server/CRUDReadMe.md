@@ -44,10 +44,10 @@ returns the review->
 ```
 
 ### Update
-PATCH -> /singleReview/:reviewID\
+PATCH -> /singleReview/:reviewID \
   <-Include an update object, all key/value pairs are optional->
 
-  For example, the object can simply be->\
+  For example, the object can simply be-> \
   req.query =
 ```
   {
@@ -76,5 +76,5 @@ All the way up to->
 ```
 
 ### Delete
-DELETE -> /singleReview/:reviewID\
+DELETE -> /singleReview/:reviewID \
 returns 'Deleted Review!'
