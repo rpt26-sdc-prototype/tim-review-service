@@ -23,58 +23,72 @@ const linkArray = [...new Array(_arrayCopiesNumber)].map((item) => {
   return fs.readFileSync(`${__dirname}/list.txt`).toString().split('\n');
 }).flat();
 
-console.log(linkArray.length);
+const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+const alphabetShuffle = (alphabet) => {
+  var currentIndex = alphabet.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
 
-// (async () => {
-//   const { generateInBetweenSync, twoValProb, threeValProb } = random;
-//   const { User, Review } = sequelize.models;
+    // And swap it with the current element.
+    temporaryValue = alphabet[currentIndex];
+    alphabet[currentIndex] = alphabet[randomIndex];
+    alphabet[randomIndex] = temporaryValue;
+  }
+  return alphabet.join('');
+}
 
-//   try {
-//     const { generateUsername } = UsernameGenerator;
-//     const userResults = await Promise.all(linkArray.map(async (link) => {
-//       return {
-//         userName: await generateUsername(),
-//         profilePicture: link,
-//         userTheme: generateInBetweenSync(10),
-//         steamLevel: generateInBetweenSync(100),
-//         reviewsGiven: generateInBetweenSync(20),
-//         gamesOwned: generateInBetweenSync(125),
-//         playtime: generateInBetweenSync(80),
-//         productActivation: generateInBetweenSync(2)
-//       }
-//     }))
+(async () => {
+  const { generateInBetweenSync, twoValProb, threeValProb } = random;
+  const { User, Review } = sequelize.models;
+  try {
+    const { generateUsername } = UsernameGenerator;
+    const userResults = await Promise.all(linkArray.map(async (link) => {
+      return {
+        // userName: await generateUsername('-'),
+        userName: await alphabetShuffle(alphabet),
+        profilePicture: link,
+        userTheme: generateInBetweenSync(10),
+        steamLevel: generateInBetweenSync(100),
+        reviewsGiven: generateInBetweenSync(20),
+        gamesOwned: generateInBetweenSync(125),
+        playtime: generateInBetweenSync(80),
+        productActivation: generateInBetweenSync(2)
+      }
+    }));
 
-//     const finalUserResults = await User.bulkCreate(userResults);
-//     console.log('Users Table Populated');
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-//   try {
-//     const reviewResults = await Promise.all([...new Array(2500)].map(() => { return {} }).map(async (review) => {
-//       const helpfulCount = generateInBetweenSync(100);
-//       const notHelpfulCount = generateInBetweenSync(10);
+    const finalUserResults = await User.bulkCreate(userResults);
+    console.log('Users Table Populated');
+  } catch (err) {
+    console.log(err.errors);
+  }
+    try {
+      const reviewResults = await Promise.all([...new Array(_reviewsRecordNumber)].map(() => { return {} }).map(async (review) => {
+        const helpfulCount = generateInBetweenSync(100);
+        const notHelpfulCount = generateInBetweenSync(10);
 
-//       return {
-//         game: generateInBetweenSync(100),
-//         userID: generateInBetweenSync(250),
-//         reviewText: await lorem.lorem.generateParagraphs(generateInBetweenSync(10)),
-//         creationDate: (1616535988000 - (generateInBetweenSync(31536000000))),
-//         recommended: twoValProb(.15),
-//         helpfulCount: helpfulCount,
-//         notHelpfulCount: notHelpfulCount,
-//         helpfulScore: helpfulCount / (helpfulCount + notHelpfulCount) * 100,
-//         funnyCount: threeValProb(.7, .8),
-//         comments: threeValProb(.7, .9),
-//         earlyAccess: twoValProb(.9),
-//         awards: generateInBetweenSync(20)
-//       }
-//     }));
-//     const finalReviewResults = await Review.bulkCreate(reviewResults);
-//     console.log('Reviews Table Populated');
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-//   console.log('Ending timestamp (Bottom of file)--> ' + new Date(Date.now()).toString());
-//   process.exit(1)
-// })()
+        return {
+          game: generateInBetweenSync(primaryRecordNumber),
+          userID: generateInBetweenSync(_usersRecordNumber),
+          reviewText: await lorem.lorem.generateParagraphs(generateInBetweenSync(10)),
+          creationDate: (1616535988000 - (generateInBetweenSync(31536000000))),
+          recommended: twoValProb(.15),
+          helpfulCount: helpfulCount,
+          notHelpfulCount: notHelpfulCount,
+          helpfulScore: helpfulCount / (helpfulCount + notHelpfulCount) * 100,
+          funnyCount: threeValProb(.7, .8),
+          comments: threeValProb(.7, .9),
+          earlyAccess: twoValProb(.9),
+          awards: generateInBetweenSync(20)
+        }
+      }));
+      const finalReviewResults = await Review.bulkCreate(reviewResults);
+      console.log('Reviews Table Populated');
+    } catch (err) {
+      console.log(err.message);
+    }
+  console.log('Ending timestamp (Bottom of file)--> ' + new Date(Date.now()).toString());
+  process.exit(1)
+})()
