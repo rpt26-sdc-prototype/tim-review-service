@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 const LoremIpsum = Promise.promisifyAll(require('lorem-ipsum').LoremIpsum);
 
-const lorem = new LoremIpsum({
+module.exports = new LoremIpsum({
   sentencesPerParagraph: {
     max: 8,
     min: 4
@@ -12,4 +12,4 @@ const lorem = new LoremIpsum({
   }
 });
 
-module.exports.lorem = lorem;
+// module.exports = lorem;
