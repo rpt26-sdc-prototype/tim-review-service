@@ -1,6 +1,5 @@
 const express = require(`express`);
 const router = express.Router();
-const axios = require('axios');
 
 const { createSingleGameReview, getSingleGameReview, updateSingleGameReview, deleteSingleGameReview } = require('../db/CRUDControllers.js');
 

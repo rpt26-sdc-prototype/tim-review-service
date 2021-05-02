@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 var UsernameGenerator = Promise.promisifyAll(require('username-generator'));
 var db = Promise.promisifyAll(require('../db'));
 var lorem = require('./randomWordGeneration');
-var random = require('./randomMathGeneration')
+var random = require('./randomMathGeneration');
 
 var fs = require('fs');
 var linkArray = fs.readFileSync(`${__dirname}/list.txt`).toString().split('\n');

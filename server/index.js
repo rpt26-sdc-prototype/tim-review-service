@@ -7,5 +7,5 @@ dotenv.config({ path: 'config/config.env' });
 const PORT = process.env.PORT || 4052;
 
 app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.log(`Reviews Service listening on port ${PORT}`);
 });

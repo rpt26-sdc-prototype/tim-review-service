@@ -1,5 +1,5 @@
 //random generation
-module.exports.generateInbetweenSync = (max) => {
+module.exports.generateInBetweenSync = (max) => {
   return Math.ceil(Math.random() * max);
 };
 
