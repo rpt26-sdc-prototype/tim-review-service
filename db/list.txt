@@ -247,6 +247,3 @@ https://gifbucket.s3.us-west-1.amazonaws.com/stealth-gamer-logo-guns-bullets-260
 https://gifbucket.s3.us-west-1.amazonaws.com/thumb-131257.jpg
 https://gifbucket.s3.us-west-1.amazonaws.com/typical-gamer-profile-pic-1200x900.jpg
 https://gifbucket.s3.us-west-1.amazonaws.com/xbox-custom-gamerpic-windows-10-2.jpg
-https://gifbucket.s3.us-west-1.amazonaws.com/xbox-custom-gamerpics.jpg
-https://gifbucket.s3.us-west-1.amazonaws.com/xbox-live-custom-gamerpic.jpg
-https://gifbucket.s3.us-west-1.amazonaws.com/xi62j6whz4831.jpg

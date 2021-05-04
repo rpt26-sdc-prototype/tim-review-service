@@ -95,7 +95,6 @@ var makeEverythingWait = () => {
         '${comments}'
         )`)
     await makeEverythingWait()
-
   }
   process.exit(1)
 })()
