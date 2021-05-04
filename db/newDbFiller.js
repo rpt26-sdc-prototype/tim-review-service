@@ -26,23 +26,39 @@ const _usersSmallBatchNumber = usersBigBatchLimiter / usersSmallBatchLimiter; //
 const _usersArrayCopiesNumber = usersSmallBatchLimiter / 250; //100
 //
 
-const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+// const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+//   , 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+//   'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+// ];
 
-const alphabetShuffle = (alphabet) => {
-  var currentIndex = alphabet.length, temporaryValue, randomIndex;
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    // And swap it with the current element.
-    temporaryValue = alphabet[currentIndex];
-    alphabet[currentIndex] = alphabet[randomIndex];
-    alphabet[randomIndex] = temporaryValue;
-  }
-  return alphabet.join('');
+// const alphabetShuffle = (alphabet) => {
+//   var currentIndex = alphabet.length, temporaryValue, randomIndex;
+//   while (0 !== currentIndex) {
+//     // Pick a remaining element...
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//     currentIndex -= 1;
+//     // And swap it with the current element.
+//     temporaryValue = alphabet[currentIndex];
+//     alphabet[currentIndex] = alphabet[randomIndex];
+//     alphabet[randomIndex] = temporaryValue;
+//   }
+//   return alphabet.join('');
+// }
+
+// base 36 function...
+// https://stackoverflow.com/questions/10726909/random-alpha-numeric-string-in-javascript
+function randomString(length) {
+  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
 }
 
 const linkArray = fs.readFileSync(`${__dirname}/list.txt`).toString().split('\n');
+
+const insertionArr = [...new Array(_usersArrayCopiesNumber)].map(()=> {
+  return linkArray;
+}).flat();
+
+fs.writeFileSync(`${__dirname}/newList.txt`, insertionArr.join('\n'));
+
 
 // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
 async function asyncForEach(array, callback) {
@@ -59,26 +75,22 @@ async function asyncForEach(array, callback) {
   try {
     console.log(`
      Users Table Populating
-    `.green );
+    `.green);
     const performanceArr = [];
 
     await asyncForEach([...new Array(_usersBigBatchNumber)], async (bigBatch, dex, arr) => {
       console.log(`<--- User Big Batch ${(dex + 1)}/${_usersBigBatchNumber}--->`.yellow);
       const start = performance.now();
       await Promise.all(
-        [...new Array(_usersSmallBatchNumber)].map((batch, count) => {
+        [...new Array(_usersSmallBatchNumber)].map(async (batch, count) => {
           if (((count + 1) / 5) % 1 === 0) {
             console.log(`     USBP... ${count + 1}/${_usersSmallBatchNumber}`)
           };
-          return User.bulkCreate(
-            [...new Array(_usersArrayCopiesNumber)]
-              .map(() => {
-                return linkArray;
-              })
-              .flat()
+          await User.bulkCreate(
+              insertionArr
               .map(link => {
                 return {
-                  userName: alphabetShuffle(alphabet),
+                  userName: randomString(12),
                   profilePicture: link,
                   userTheme: generateInBetweenSync(10),
                   steamLevel: generateInBetweenSync(100),
