@@ -41,4 +41,7 @@ public/bundle.js
 db/config/config.json
 db/CSV\ Writers/oneMillionReviews.txt
 db/newList.txt
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2af56f5... grr
