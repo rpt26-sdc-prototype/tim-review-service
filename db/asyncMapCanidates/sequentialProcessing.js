@@ -68,7 +68,7 @@ async function asyncForEach(array, callback) {
 }
 
 (async () => {
-  const { User, Review, Users2 } = sequelize.models;
+  const { User, Review } = sequelize.models;
   const { generateInBetweenSync, twoValProb, threeValProb } = random;
 
   // Users...
@@ -78,25 +78,20 @@ async function asyncForEach(array, callback) {
     `.green);
     const performanceArr = [];
 
-    await asyncForEach([...new Array(_usersBigBatchNumber)], async (bigBatch, dex, arr) => {
+    await [...new Array(_usersBigBatchNumber)].reduce(async (memo, value, dex) => {
+      const results = await memo;
       console.log(`<--- User Big Batch ${(dex + 1)}/${_usersBigBatchNumber}--->`.yellow);
       const start = performance.now();
-      await Promise.all(
+      const waiter = await Promise.all(
         [...new Array(_usersSmallBatchNumber)].map(async (batch, count) => {
           if (((count + 1) / 5) % 1 === 0) {
             console.log(`     USBP... ${count + 1}/${_usersSmallBatchNumber}`)
           };
-          let UserX;
-          if (dex === 0) {
-            UserX = User;
-          } else {
-            UserX = Users2;
-          }
-          await UserX.bulkCreate(
+          await User.bulkCreate(
             insertionArr
               .map(link => {
                 return {
-                  userName: randomString(12),
+                  userName: randomString(15),
                   profilePicture: link,
                   userTheme: generateInBetweenSync(10),
                   steamLevel: generateInBetweenSync(100),
@@ -109,6 +104,7 @@ async function asyncForEach(array, callback) {
           )
         })
       );
+
       const end = performance.now();
       const difference = (((end - start) / 1000));
       performanceArr.push(Number(difference));
@@ -117,19 +113,24 @@ async function asyncForEach(array, callback) {
         return total;
       }, 0);
 
+      // Performance Metrics Section:
       const avgTime = trending / performanceArr.length;
       const totalEstTime = (avgTime * _usersBigBatchNumber) / 60;
       const totalElapsedTime = trending / 60;
 
       console.log(`
-          Batch Took ${(difference).toFixed(2)} seconds!
-          Average Batch execution- ${(trending / performanceArr.length).toFixed(2)} Secs
-          Total Estimated Seeding Time- ${(totalEstTime).toFixed(2)} Mins.
-          Total Elapsed Time- ${(totalElapsedTime).toFixed(2)} Mins.
-          Est Remaining Time ${(totalEstTime - totalElapsedTime).toFixed(2)} Mins
-          `.cyan
+            Batch Took ${(difference).toFixed(2)} seconds!
+            Average Batch execution- ${(trending / performanceArr.length).toFixed(2)} Secs
+            Total Estimated Seeding Time- ${(totalEstTime).toFixed(2)} Mins.
+            Total Elapsed Time- ${(totalElapsedTime).toFixed(2)} Mins.
+            Est Remaining Time ${(totalEstTime - totalElapsedTime).toFixed(2)} Mins
+            `.cyan
       );
-    });
+
+
+
+      return memo;
+    }, [])
     console.log(' \n Users Table Populated \n ');
   } catch (err) {
     console.log(err.message);

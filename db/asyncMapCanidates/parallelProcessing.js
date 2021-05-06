@@ -4,12 +4,21 @@
 
 console.log('Starting time stamp (Top of file)--> \n\n' + new Date(Date.now()).toString());
 const Sequelize = require('sequelize');
+var PromiseX = require('bluebird');
 const colors = require('colors');
 const sequelize = require('./config.js');
 const lorem = require('./randomWordGeneration');
 const random = require('./randomMathGeneration')
 const fs = require('fs');
 const { performance } = require('perf_hooks');
+
+var makeEverythingWait = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve()
+    }, 1000)
+  })
+}
 
 const primaryRecordNumber = 10000000;
 const usersBigBatchLimiter = 1000000;
@@ -68,7 +77,7 @@ async function asyncForEach(array, callback) {
 }
 
 (async () => {
-  const { User, Review, Users2 } = sequelize.models;
+  const { User, Review } = sequelize.models;
   const { generateInBetweenSync, twoValProb, threeValProb } = random;
 
   // Users...
@@ -78,21 +87,23 @@ async function asyncForEach(array, callback) {
     `.green);
     const performanceArr = [];
 
-    await asyncForEach([...new Array(_usersBigBatchNumber)], async (bigBatch, dex, arr) => {
+    // const result = await PromiseX.map([1, 2, 3, 4, 5, 6], async (x, dex) => {
+    //   console.log(x);
+    //   return x + 1
+    // }, { concurrency: 3 })
+    // console.log(result);
+    // return;
+
+    // await asyncForEach([...new Array(_usersBigBatchNumber)], async (bigBatch, dex, arr) => {
+    await PromiseX.map([...new Array(_usersBigBatchNumber)], async (x, dex) => {
       console.log(`<--- User Big Batch ${(dex + 1)}/${_usersBigBatchNumber}--->`.yellow);
       const start = performance.now();
-      await Promise.all(
+      const promiseResult = await Promise.all(
         [...new Array(_usersSmallBatchNumber)].map(async (batch, count) => {
           if (((count + 1) / 5) % 1 === 0) {
             console.log(`     USBP... ${count + 1}/${_usersSmallBatchNumber}`)
           };
-          let UserX;
-          if (dex === 0) {
-            UserX = User;
-          } else {
-            UserX = Users2;
-          }
-          await UserX.bulkCreate(
+          await User.bulkCreate(
             insertionArr
               .map(link => {
                 return {
@@ -107,7 +118,7 @@ async function asyncForEach(array, callback) {
                 }
               })
           )
-        })
+        }, {concurrency: 2})
       );
       const end = performance.now();
       const difference = (((end - start) / 1000));
@@ -129,7 +140,9 @@ async function asyncForEach(array, callback) {
           Est Remaining Time ${(totalEstTime - totalElapsedTime).toFixed(2)} Mins
           `.cyan
       );
-    });
+      return promiseResult;
+    })
+    // });
     console.log(' \n Users Table Populated \n ');
   } catch (err) {
     console.log(err.message);

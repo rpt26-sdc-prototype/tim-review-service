@@ -39,4 +39,5 @@ ignore/
 public/bundle.js
 
 db/config/config.json
+db/CSV\ Writers/oneMillionReviews.txt
 db/newList.txt
