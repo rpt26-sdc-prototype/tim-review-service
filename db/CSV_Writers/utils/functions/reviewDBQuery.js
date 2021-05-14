@@ -5,8 +5,7 @@ const db = PromiseX.promisifyAll(require(path.resolve('../../db')));
 module.exports = (table) => {
   return new Promise((resolve, reject) => {
     db.query(
-      `LOAD DATA LOCAL INFILE 'Read_Write_Files/oneMillionRecordsStr.csv'
-      IGNORE
+      `LOAD DATA LOCAL INFILE 'Read_Write_Files/oneMillionReviews.csv'
       INTO TABLE ${table}
       FIELDS TERMINATED BY ','
       ENCLOSED BY '"'

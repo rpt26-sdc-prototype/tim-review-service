@@ -7,6 +7,6 @@ module.exports = {
     return (random <= num1) ? 0 : (random <= num2) ? 1 : 2
   },
   twoValProb: (num1) => {
-    return  (Math.random(); <= num1) ? 0 : 1;
+    return  (Math.random() <= num1) ? 0 : 1;
   }
 };

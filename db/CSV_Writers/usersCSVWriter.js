@@ -23,23 +23,29 @@ require('./utils/functions/insertionArrGeneration')(_usersArrayCopiesNumber);
 
 // Users...
 (async () => {
+  // await database.sequelize.query('SET autocommit=0;');
+  // await database.sequelize.query('SET unique_checks=0;');
+  // await database.sequelize.query('SET foreign_key_checks=0;');
   try {
     console.log('\nUsers Table Populating\n'.green);
     let { perfArr, userX, tableCount } = { perfArr: [], userX: 'users', tableCount: 0 };
     // Sequential Processing
     await Promise.each([...new Array(_usersBigBatchNumber)], async (bigBatch, bigIndex) => {
       // Every Three Insertions, make a new table, returns same values otherwise.
-      [tableCount, userX] = await generateNewUserTable(tableCount, perfArr)
+      [tableCount, userX] = await generateNewUserTable(tableCount, perfArr);
       const start = performance.now();
       logBigBatchUpdates(bigIndex, _usersBigBatchNumber);
       // Generate 1 Million Records
-      smallBatchGenerator(_usersSmallBatchNumber, logSmallBatchUpdates);
+      smallBatchGenerator(_usersSmallBatchNumber, logSmallBatchUpdates, bigIndex);
       // And Insert into DB
       await userDBQuery(userX);
       // Log Performance Metrics...
       perfArr = logPerformanceMetrics(start, performance.now(), _usersBigBatchNumber, perfArr).slice();
     });
     logVictoryMessage();
+    // await database.sequelize.query('COMMIT;')
+    // await database.sequelize.query('SET unique_checks=1;')
+    // await database.sequelize.query('SET foreign_key_checks=1');
     process.exit(1)
   } catch (err) {
     console.log(err.message);
