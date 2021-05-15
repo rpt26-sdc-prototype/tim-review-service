@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const Reviews = sequelize.define('reviews', {
+module.exports = (sequelize, DataTypes, tableCount) => {
+  const Reviews = sequelize.define(`review${tableCount}`, {
     game: {
       type: DataTypes.INTEGER,
     },

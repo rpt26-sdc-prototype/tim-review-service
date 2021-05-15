@@ -1,12 +1,13 @@
 var db = require('./index.js');
 module.exports = {
   read: (gameID, cb) => {
-    db.query(`SELECT * FROM reviews INNER JOIN users ON users.ID = reviews.userID WHERE reviews.game = ${gameID} ORDER BY reviews.creationDate DESC`, (error, results, fields) => {
+    console.log('reading')
+    db.query(`SELECT * FROM reviews1 INNER JOIN user1 ON user1.ID = reviews1.userID WHERE reviews1.game = ${gameID} ORDER BY reviews1.creationDate DESC`, (error, results, fields) => {
       if (error) {
         throw error;
       } else {
         var returnArray = [];
-
+        console.log(results);
         for (let i = 0; i < results.length; i++) {
           returnArray.push({
             gameID: results[i].game,

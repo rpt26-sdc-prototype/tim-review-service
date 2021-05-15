@@ -39,21 +39,6 @@ ignore/
 public/bundle.js
 
 db/config/config.json
-db/CSV\ Writers/oneMillionReviews.txt
+db/CSV\ Writers/Read_Write_Files/oneMillionRecordsStr.csv
+db/CSV\ Writers/Read_Write_Files/twentyFiveKProfileLinks.txt
 db/newList.txt
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 22d4bcc... Removed large files for commit
-=======
-
->>>>>>> 153a886... gitignore
-=======
-=======
-
-=======
->>>>>>> 7ddc090... rebase?
->>>>>>> 2af56f5... grr

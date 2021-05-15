@@ -18,7 +18,7 @@ app.use(/(singleReview)?/, CRUDRouter);
 
 app.get('/reviews/:gameID', async (req, res) => {
   const { gameID } = req.params;
-  if (gameID > 0 && gameID <= 100) {
+  // if (gameID > 0 && gameID <= 100) {
     // model.read(gameID, (error, data) => {
     //   if (error) { console.log(error); }
     //   res.send(data);
@@ -29,7 +29,7 @@ app.get('/reviews/:gameID', async (req, res) => {
     } catch (err) {
       res.send(err);
     }
-  }
+  // }
   // else {
   //   res.status(404).send('Invalid GameID');
   // }
