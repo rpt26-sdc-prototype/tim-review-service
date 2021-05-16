@@ -1,5 +1,4 @@
-const Promise = require('bluebird');
-const LoremIpsum = Promise.promisifyAll(require('lorem-ipsum').LoremIpsum);
+const { LoremIpsum } = require('../packages.js');
 
 module.exports.lorem = new LoremIpsum({
   sentencesPerParagraph: {

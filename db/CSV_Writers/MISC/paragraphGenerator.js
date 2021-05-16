@@ -1,8 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const PromiseX = require('bluebird');
+const Promise = require('bluebird');
 const { lorem } = require('../data_functions/randomWordGeneration');
-const txtgen = require('txtgen');
 
 const { generateInBetweenSync } = require
   (path.resolve('../data_functions/randomMathGeneration'));
@@ -14,9 +13,8 @@ const { generateInBetweenSync } = require
 
   stream.write('{');
 
-  // for (let i = 0; i < 40; i++) {
   let twoHundredFiftyStr = '';
-  await PromiseX.each([...new Array(1000)], async (x, index, arrLength) => {
+  await Promise.each([...new Array(1000)], async (x, index, arrLength) => {
     const entry = (index === (arrLength - 1)) ? `"${index + 1}": "${lorem.generateParagraphs(generateInBetweenSync(1))}"}` : `"${index + 1}": "${lorem.generateParagraphs(generateInBetweenSync(1))}",`;
     twoHundredFiftyStr += entry;
     (async function () {
