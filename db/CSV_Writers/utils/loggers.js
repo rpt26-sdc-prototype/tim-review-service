@@ -1,14 +1,6 @@
 module.exports = {
-  logSmallBatchUpdates: (i) => {
-    if (((i + 1) / 10) % 1 === 0) {
-      console.log(((i + 1) * 2.5) + '%')
-      if (((i + 1) / 40) % 1 === 0) {
-        console.log(`Inserting...`.yellow)
-      }
-    }
-  },
-  logBigBatchUpdates: (index, total) => {
-    console.log(`<--- User Big Batch ${(index + 1)}/${total}--->`.yellow);
+  logBatchUpdates: (index, total, name) => {
+    console.log(`<--- ${name} Batch ${(index + 1)}/${total}--->`.yellow);
   },
   logPerformanceMetrics: (start, end, uSBBN, perfArr) => {
     const difference = (((end - start) / 1000));
