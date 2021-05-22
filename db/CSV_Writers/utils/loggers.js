@@ -1,3 +1,4 @@
+const {log} = console;
 module.exports = {
   logBatchUpdates: (index, total, name) => {
     console.log(`<--- ${name} Batch ${(index + 1)}/${total}--->`.yellow);
@@ -23,6 +24,7 @@ module.exports = {
   logVictoryMessage: () => {
     console.log(' \n Users Table Populated \n ');
     console.log('Ending timestamp (Bottom of file)--> ' + new Date(Date.now()).toString());
-  }
+  },
+  log: log
 
 };
