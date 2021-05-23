@@ -1,30 +1,48 @@
-const {log} = console;
+const { log } = console;
 module.exports = {
-  logBatchUpdates: (index, total, name) => {
-    console.log(`<--- ${name} Batch ${(index + 1)}/${total}--->`.yellow);
+  logStart: (title) => {
+    log('Starting time stamp (Top of User file)--> \n\n' + new Date(Date.now()).toString().blue);
+    log(`\n ${title} Table Populating\n`.green);
+    return require('perf_hooks').performance.now();
   },
-  logPerformanceMetrics: (start, end, uSBBN, perfArr) => {
-    const difference = (((end - start) / 1000));
-    perfArr.push(Number(difference));
-    const trending = perfArr.reduce((a, b) => a + b, 0)
-    const avgPerformance = trending / perfArr.length;
-    const totalEstTime = (avgPerformance * uSBBN) / 60;
-    const totalElapsedTime = trending / 60;
-    console.log('<-- Batch Complete! -->'.green)
-    console.log(`
-      Batch Took ${(difference).toFixed(2)} seconds!
-      Average Batch execution- ${(trending / perfArr.length).toFixed(2)} Secs
-      Total Estimated Seeding Time- ${(totalEstTime).toFixed(2)} Mins.
-      Total Elapsed Time- ${(totalElapsedTime).toFixed(2)} Mins.
-      Est Remaining Time ${(totalEstTime - totalElapsedTime).toFixed(2)} Mins
-      `.cyan
+
+  logGenerationUpdates: (name, total, current) => {
+    console.log(`${name} generating... ${((1 - (current / total)) * 100).toFixed(0)}% complete`.yellow);
+  },
+
+  logVictoryMessage: (title, start, generationTime, insertionTime) => {
+    const generationTimeSeconds = ((generationTime - start) / 1000).toFixed(2);
+    const generationTimeMinutes = (generationTimeSeconds / 60).toFixed(2);
+
+    const insertionTimeSeconds = ((insertionTime - generationTime) / 1000).toFixed(2);
+    const insertionTimeMinutes = (insertionTimeSeconds / 60).toFixed(2);
+
+    const totalElapsedTimeSeconds = (((insertionTime - start) / 1000)).toFixed(2);
+    const totalElapsedTimeMinutes = (totalElapsedTimeSeconds / 60).toFixed(2);
+
+    log(`<-- ${title} table seeding complete! -->`.green);
+
+    log(`
+    Generation Time- ${generationTimeSeconds} (seconds)
+                     ${generationTimeMinutes} (minutes)`.black.greenBG
+    )
+    log(`
+    Insertion Time - ${insertionTimeSeconds} (seconds)
+                     ${insertionTimeMinutes} (minutes)
+    `.black.greenBG)
+    log(`
+    Total Time     - ${totalElapsedTimeSeconds}(seconds)
+                     ${totalElapsedTimeMinutes}(minutes)
+      `.black.greenBG
     );
-    return perfArr;
+
+    log(`
+                                         <-- ${title} Table Populated -->
+    `.rainbow);
+    log('Ending timestamp (Bottom of file)--> ' + new Date(Date.now()).toString());
   },
-  logVictoryMessage: () => {
-    console.log(' \n Users Table Populated \n ');
-    console.log('Ending timestamp (Bottom of file)--> ' + new Date(Date.now()).toString());
-  },
+
   log: log
 
 };
+
