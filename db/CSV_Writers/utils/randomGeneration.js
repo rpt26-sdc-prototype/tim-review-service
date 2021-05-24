@@ -1,4 +1,3 @@
-const { LoremIpsum } = require('../packages.js');
 module.exports = {
   generateInBetweenSync: (max) => Math.ceil(Math.random() * max),
   threeValProb: (num1, num2) => {
@@ -7,16 +6,5 @@ module.exports = {
   },
   twoValProb: (num1) => (Math.random() <= num1) ? 0 : 1,
 
-  randomString: (length) => Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1),
-
-  lorem: new LoremIpsum({
-    sentencesPerParagraph: {
-      max: 8,
-      min: 4
-    },
-    wordsPerSentence: {
-      max: 16,
-      min: 4
-    }
-  }),
-}
+  randomString: (length = 10) => Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1),
+};

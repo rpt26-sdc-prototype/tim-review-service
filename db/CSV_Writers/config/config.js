@@ -1,27 +1,27 @@
-const mE = module.exports;
+module.exports.packages = {
+  path: require('path'),
+  fs: require('fs'),
+  colors: require('colors'),
+  performance: require('perf_hooks').performance
+};
 
-mE.primaryRecordNumber = 10000000;
-mE.usersBigBatchLimiter = 500000;
+module.exports.random = require('../utils/randomGeneration.js');
+module.exports.logs = require('../utils/loggers.js');
+module.exports.utils = require('../utils/csvMachineUtils.js');
 
-// Dont Change these variables, only change the primaryRecordNumber and the batchLimiters if you must.
-// Total User Records->
-mE._usersRecordsNumber = mE.primaryRecordNumber * 2.5; //
+module.exports.userConstraints = ((primaryRecordNumber, statusUpdateInterval) => {
+    return {
+      primaryRecordNumber: primaryRecordNumber,
+      statusUpdateInterval: statusUpdateInterval,
+      _totalRecordsNumber: primaryRecordNumber * 2.5,
+    }
+  })(10000000, 1000000),
 
-//
-mE._usersBigBatchNumber = mE._usersRecordsNumber / mE.usersBigBatchLimiter;
-mE._usersArrayCopiesNumber = mE.usersBigBatchLimiter / 250  ; //20000
-
-// Total Reviews Records->
-mE.reviewsBigBatchLimiter = 1000000;
-mE._reviewsRecordsNumber = mE.primaryRecordNumber * 10; //100 Million
-mE._reviewsBigBatchNumber = mE._reviewsRecordsNumber / mE.reviewsBigBatchLimiter; //100
-
-mE.reviewTableKeys = ["game", "userID", "reviewText", "creationDate", "recommended", "helpfulCount", "notHelpfulCount", "helpfulScore", "funnyCount", "earlyAccess", "awards", "comments"].join(",");
-
-mE.userTableKeys = ["userName", "profilePicture", "userTheme", "steamLevel", "reviewsGiven", "playtime", "productActivation", "gamesOwned"].join(',');
-
-mE.random = require('../utils/randomGeneration.js');
-mE.packages = require('../packages.js');
-mE.logs = require('../utils/loggers.js');
-mE.utils = require('../utils/utils.js');
-
+module.exports.reviewConstraints = ((primaryRecordNumber, statusUpdateInterval) => {
+  return {
+    primaryRecordNumber: primaryRecordNumber,
+    statusUpdateInterval: statusUpdateInterval,
+    _totalRecordsNumber: primaryRecordNumber * 10,
+    _userRecordsNumber: module.exports.userConstraints._totalRecordsNumber
+  }
+})(10000000, 5000000)
