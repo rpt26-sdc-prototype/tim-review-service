@@ -13,6 +13,6 @@ server.get('/:id', (req, res) => {
   res.sendFile(require('path').resolve('../public/index.html'));
 });
 
-server.listen(process.env.PORT, () => {
-  console.log(`Main Server listening on port ${process.env.PORT}`);
+server.listen(4000, () => {
+  console.log(`Main Server listening on port 4000}`);
 });
