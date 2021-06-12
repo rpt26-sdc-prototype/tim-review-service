@@ -7,10 +7,10 @@ const cors = require('cors');
 
 server.use(cors());
 
-server.use(express.static(require('path').resolve('../public')));
+server.use(express.static(require('path').resolve('public')));
 
 server.get('/:id', (req, res) => {
-  res.sendFile(require('path').resolve('../public/index.html'));
+  res.sendFile(require('path').resolve('public/index.html'));
 });
 
 server.listen(4000, () => {
