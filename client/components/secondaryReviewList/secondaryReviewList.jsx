@@ -1,14 +1,12 @@
 import React from 'react';
 import SecondaryReview from '../secondaryReview/secondaryReview.jsx';
 
-var SecondaryReviewList = props => {
-
+var SecondaryReviewList = ({reviews}) => {
   return (
-
     <div>
-      { props.reviews.map(review =>
-        <SecondaryReview review={review} key={review.creationDate}/>
-      ) }
+      { reviews.map((review, index) =>
+        <SecondaryReview key={index} review={review} key={review.creationDate} />
+      )}
     </div>
   );
 

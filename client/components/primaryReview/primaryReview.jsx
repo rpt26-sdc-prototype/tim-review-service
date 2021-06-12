@@ -1,3 +1,4 @@
+import React from 'react';
 import FeedbackCollectorComponent from '../feedbackCollector/feedbackCollectorComponent.jsx';
 import {
   ReviewWrapper,
@@ -33,7 +34,7 @@ var FunnyCountComponent = props => {
 
 var PrimaryReview = props => {
 
-  let userName = props.review.userName
+  let userName = props.review.username
   if (userName.length > 17) {
     userName = userName.slice(0, 16) + '...'
   }
@@ -44,7 +45,7 @@ var PrimaryReview = props => {
   }
 
   let purchaseIco = ""
-  props.review.productActivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco =  "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
+  props.review.productActivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
 
 
   var imageURL = 'https://gifbucket.s3-us-west-1.amazonaws.com/icon_thumbsUp_v6.png';
@@ -54,10 +55,10 @@ var PrimaryReview = props => {
     recommendText = 'Not Recommended'
   }
 
-  var creationDate = props.review.creationDate.toString();
+  var creationDate = props.review.creationdate.toString();
   var helpfulCount = props.review.helpfulCount.toString();
 
-  var postedDateArr = new Date(props.review.creationDate).toString().split(' ');
+  var postedDateArr = new Date(props.review.creationdate).toString().split(' ');
   var postedDateString = `${postedDateArr[1]} ${postedDateArr[2]} ${postedDateArr[3]}`
 
 
@@ -107,12 +108,12 @@ var PrimaryReview = props => {
       </FunnyCount>
       <CommentCount>
         {props.review.comments ?
-        <CommentContainer>
-          <div>
-            {props.review.comments}
-          </div>
-          <img src="https://gifbucket.s3-us-west-1.amazonaws.com/comment_quoteicon_blue.png" />
-        </CommentContainer> : null}
+          <CommentContainer>
+            <div>
+              {props.review.comments}
+            </div>
+            <img src="https://gifbucket.s3-us-west-1.amazonaws.com/comment_quoteicon_blue.png" />
+          </CommentContainer> : null}
       </CommentCount>
     </ReviewWrapper>
   )

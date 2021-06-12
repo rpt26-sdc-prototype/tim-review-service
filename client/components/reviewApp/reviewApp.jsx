@@ -34,6 +34,7 @@ import {
   FiltersDiv,
   DownArrow
 } from './reviewApp.styles.jsx';
+import React from 'react';
 
 class ReviewApp extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class ReviewApp extends React.Component {
     let splitArr = currentURL.split('/');
     let gameID = splitArr[splitArr.length - 1];
 
-    fetch(`/reviews/${gameID}`)
+    fetch(`reviews/${gameID}`)
       .then(response => response.json())
       .then(reviews => {
         console.log(reviews);
@@ -69,7 +70,6 @@ class ReviewApp extends React.Component {
         this.addHelpfulnessScore(reviews)
         this.getOverallReview()
       })
-
   }
 
   //sorts reviews by most helpful
@@ -79,8 +79,7 @@ class ReviewApp extends React.Component {
       if (array.length < 2) {
         return array
       }
-
-      let pivotVal = array[0].helpfulScore
+      let pivotVal = array[0].helpfulScore;
       let pivotNode = array[0]
       let lessThanArr = []
       let moreThanArr = []

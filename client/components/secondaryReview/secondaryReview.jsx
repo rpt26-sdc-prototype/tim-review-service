@@ -1,3 +1,4 @@
+import React from 'react';
 import FeedbackCollectorComponent from '../feedbackCollector/feedbackCollectorComponent.jsx';
 import {
   SecondaryReviewWrapper,
@@ -12,41 +13,39 @@ import {
 } from './secondaryReview.styles.jsx'
 
 
-var SecondaryReview = props => {
-
-  let reviewText = props.review.reviewText;
+var SecondaryReview = ({ review: {username, reviewText, productactivation, recommended, creationdate, playtime}}) => {
   if (reviewText.length > 500) {
     reviewText = reviewText.slice(0, 499);
   }
 
-  let userName = props.review.userName
+  let userName = username;
   if (userName.length > 17) {
     userName = userName.slice(0, 16) + '...'
   }
 
   let purchaseIco = ""
-  props.review.productActivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco =  "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
+  productactivation === 1 ? purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_steam.png" : purchaseIco = "https://gifbucket.s3-us-west-1.amazonaws.com/icon_review_key.png"
 
   var imageURL = 'https://gifbucket.s3-us-west-1.amazonaws.com/icon_thumbsUp_v6.png';
   var recommendText = 'Recommended'
-  if (props.review.recommended === 0) {
+  if (recommended === 0) {
     imageURL = 'https://gifbucket.s3-us-west-1.amazonaws.com/icon_thumbsDown_v6.png';
     recommendText = 'Not Recommended'
   }
 
-  var postedDateArr = new Date(props.review.creationDate).toString().split(' ');
+  var postedDateArr = new Date(creationdate).toString().split(' ');
   var postedDateString = `${postedDateArr[1]} ${postedDateArr[2]} ${postedDateArr[3]}`
 
   return (
     <SecondaryReviewWrapper>
       <SecondaryThumb>
-      <img src={imageURL} width="25" height="25" />
+        <img src={imageURL} width="25" height="25" />
       </SecondaryThumb>
       <SecondaryUserName className='secondaryUserName'>
         {userName}
       </SecondaryUserName>
       <SecondaryTimePlayed className="secondaryTimePlayed">
-        {props.review.playtime} hrs
+        {playtime} hrs
       </SecondaryTimePlayed>
       <SecondarySteamIcon>
         <img src={purchaseIco} />
@@ -55,7 +54,7 @@ var SecondaryReview = props => {
         posted {postedDateString}
       </SecondaryReviewDatePosted>
       <SecondaryReviewText className='secondaryReviewText'>
-      {reviewText}
+        {reviewText}
       </SecondaryReviewText>
       <SecondaryHelpfulMessage className='helpful'>
         Helpful?

@@ -1,3 +1,6 @@
+import ReactDOM from 'react-dom';
+import React from 'react';
 import ReviewApp from './components/reviewApp/reviewApp.jsx'
 
-window.ReviewApp = ReviewApp;
+ReactDOM.render(<ReviewApp />, document.getElementById('reviewApp'));
+// window.ReviewApp = ReviewApp;

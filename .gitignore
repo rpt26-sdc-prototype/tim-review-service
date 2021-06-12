@@ -1,6 +1,8 @@
 ## MAC files ##
 .DS_Store
 
+newrelic.js
+
 ## NPM ##
 npm
 npm-debug.log
@@ -42,3 +44,6 @@ db/config/config.json
 db/CSV\ Writers/Read_Write_Files/oneMillionRecordsStr.csv
 db/CSV\ Writers/Read_Write_Files/twentyFiveKProfileLinks.txt
 db/newList.txt
+*.pem
+*.sh
+SDC-ReviewService.pem

@@ -1,4 +1,4 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 export const SecondaryReviewWrapper = styled.div`
   background-image: linear-gradient(to right, rgb(32, 50, 63) , rgb(26, 40, 56));

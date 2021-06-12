@@ -1,11 +1,18 @@
+require('newrelic');
 require('dotenv').config()
-const app = require('./app');
 
-const dotenv = require('dotenv');
-dotenv.config({ path: 'config/config.env' });
+const express = require('express');
+const server = express();
+const cors = require('cors');
 
-const PORT = process.env.PORT || 4052;
+server.use(cors());
 
-app.listen(PORT, () => {
-  console.log(`Reviews Service listening on port ${PORT}`);
+server.use(express.static(require('path').resolve('../public')));
+
+server.get('/:id', (req, res) => {
+  res.sendFile(require('path').resolve('../public/index.html'));
+});
+
+server.listen(process.env.PORT, () => {
+  console.log(`Main Server listening on port ${process.env.PORT}`);
 });

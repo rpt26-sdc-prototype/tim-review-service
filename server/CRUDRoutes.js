@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { createSingleGameReview, getSingleGameReview, updateSingleGameReview, deleteSingleGameReview } = require('../db/CRUDControllers.js');
 
+const { getGameReviews } = require('../db/controllers.js');
 
 // <-- CRUD ROUTES -->
 // CREATE
@@ -16,11 +17,10 @@ router.post('/singleReview', async (req, res) => {
 })
 
 // READ
-router.get('/singleReview/:reviewID', async (req, res) => {
+router.get('/reviews/:gameID', async ({ headers: { host }, params: { gameID } }, res) => {
   try {
-    const { reviewID } = req.params;
-    const result = await getSingleGameReview(reviewID);
-    res.send(result);
+    const reviews = await getGameReviews(gameID, host);
+    res.send(reviews);
   } catch (err) {
     res.send(err);
   }

@@ -1,0 +1,33 @@
+config:
+  target: "http://localhost"
+  phases:
+    - duration: 10
+      arrivalRate: 50
+      name: primer
+    - duration: 20
+      arrivalRate: 125
+      name: Warm up
+    - duration: 10
+      arrivalRate: 250
+      name: Ramp up phase one
+    - duration: 10
+      arrivalRate: 400
+      name: Ramp up phase two
+    - duration: 300
+      arrivalRate: 500
+      name: sustain
+    - duration: 20
+      arrivalRate: 100
+      name: cool down phase one
+    - duration: 10
+      arrivalRate: 50
+      name: cool down phase two
+
+scenarios:
+  - name: "Get Request"
+    flow:
+      - get:
+          url: "/reviews/1"
+
+
+

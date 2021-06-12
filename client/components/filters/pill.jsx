@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 const PillContainer = styled.div`
   background-color: rgb(88, 98, 111);
   padding: 5px;

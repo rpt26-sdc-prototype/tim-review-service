@@ -1,4 +1,4 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 export const ReviewWrapper = styled.div`
   padding-left: 5px;

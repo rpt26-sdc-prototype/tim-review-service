@@ -1,4 +1,4 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 export const ReviewAppContainer = styled.div`
   border-style: none;
@@ -7,7 +7,7 @@ export const ReviewAppContainer = styled.div`
   display: grid;
   width: 960px;
   grid-template-columns: 620px 340px
-  gird-template-rows: auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto;
 `;
 
 export const Title = styled.div`

@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 export const DownArrow = styled.span`
 font-size: 13px;
 padding-left: 8px;
