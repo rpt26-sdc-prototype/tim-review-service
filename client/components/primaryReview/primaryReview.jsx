@@ -55,17 +55,17 @@ var PrimaryReview = props => {
     recommendText = 'Not Recommended'
   }
 
-  var creationDate = props.review.creationdate.toString();
+  var creationDate = Number(props.review.creationdate);
   var helpfulCount = props.review.helpfulCount.toString();
 
-  var postedDateArr = new Date(props.review.creationdate).toString().split(' ');
+  var postedDateArr = new Date(creationDate).toString().split(' ');
   var postedDateString = `${postedDateArr[1]} ${postedDateArr[2]} ${postedDateArr[3]}`
 
 
   return (
     <ReviewWrapper>
       <ProfilePicture>
-        <img src={props.review.profilePicture} width="35" height="35" />
+        <img src={props.review.profilepicture} width="35" height="35" />
       </ProfilePicture>
       <UserName className='username'>
         {userName}
