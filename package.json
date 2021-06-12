@@ -12,10 +12,7 @@
     "restart": "pm2 startOrRestart ./server/ecosystem.config.js",
     "deploy": "pm2 deploy ./server/ecosystem.config.js production",
     "test": "jest --detectOpenHandles ./test",
-    "start": "nodemon server/index.js",
-    "database": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
-    "start-dev": "nodemon server/index.js",
-    "react-dev": "webpack --mode development --watch"
+    "build": "webpack"
   },
   "jest": {
     "testEnvironment": "node",

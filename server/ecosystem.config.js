@@ -11,7 +11,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:rpt26-sdc-prototype/tim-review-service.git',
       path: '/home/ubuntu/review-server',
-      'post-deploy': 'npm install && npm run react-dev && pm2 startOrRestart ./server/ecosystem.config.js'
+      'post-deploy': 'npm install && npm run build && pm2 startOrRestart ./server/ecosystem.config.js'
     }
   }
 }
