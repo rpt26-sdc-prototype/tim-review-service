@@ -1,8 +1,8 @@
 {
-  "name": "fecService1",
+  "name": "SDC Reviews Service",
   "version": "1.0.0",
   "description": "review service",
-  "author": "Tim Anderson",
+  "author": "Tim Anderson & James Hrivnak",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
@@ -29,14 +29,10 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lorem-ipsum": "^2.0.3",
-    "mongoose": "^5.12.9",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.2.5",
     "newrelic": "^7.5.0",
     "pg": "^8.6.0",
     "request": "^2.88.2",
-    "sequelize": "^6.6.2",
     "txtgen": "^2.2.8",
     "username-generator": "^1.1.0"
   },
@@ -63,7 +59,6 @@
     "react-dom": "^17.0.1",
     "react-scripts": "^4.0.3",
     "reactify": "^1.1.1",
-    "sequelize-cli": "^6.2.0",
     "styled-components": "^4.4.1",
     "supertest": "^6.1.3",
     "time-grunt": "^2.0.0",

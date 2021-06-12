@@ -33,7 +33,7 @@ var SecondaryReview = ({ review: {username, reviewText, productactivation, recom
     recommendText = 'Not Recommended'
   }
 
-  var postedDateArr = new Date(creationdate).toString().split(' ');
+  var postedDateArr = new Date(Number(creationdate)).toString().split(' ');
   var postedDateString = `${postedDateArr[1]} ${postedDateArr[2]} ${postedDateArr[3]}`
 
   return (
