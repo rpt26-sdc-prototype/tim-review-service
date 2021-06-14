@@ -35,6 +35,7 @@ import {
   DownArrow
 } from './reviewApp.styles.jsx';
 import React from 'react';
+import axios from 'axios';
 
 class ReviewApp extends React.Component {
   constructor(props) {
@@ -62,9 +63,8 @@ class ReviewApp extends React.Component {
     let splitArr = currentURL.split('/');
     let gameID = splitArr[splitArr.length - 1];
 
-    fetch(`reviews/${gameID}`)
-      .then(response => response.json())
-      .then(reviews => {
+    return axios(`reviews/${gameID}`)
+      .then(({ data: reviews }) => {
         console.log(reviews);
         this.setState({ reviews })
         this.addHelpfulnessScore(reviews)
@@ -128,11 +128,11 @@ class ReviewApp extends React.Component {
 
     let negativeReviewCount = totalReviewCount - recommendationCount;
     this.setState({
-       recommendationString,
-       totalReviewCount,
-       positiveReviewCount: recommendationCount,
-       negativeReviewCount
-       })
+      recommendationString,
+      totalReviewCount,
+      positiveReviewCount: recommendationCount,
+      negativeReviewCount
+    })
   }
 
   reviewFilterChange(value, name) {
@@ -141,7 +141,7 @@ class ReviewApp extends React.Component {
         this.setState({ reviewType: 'All' })
       } else if (value === 'Positive') {
         this.setState({ reviewType: 'Positive' })
-      }else if (value === 'Negative') {
+      } else if (value === 'Negative') {
         this.setState({ reviewType: 'Negative' })
       }
     } else if (name === 'purchaseType') {
@@ -166,7 +166,7 @@ class ReviewApp extends React.Component {
 
   render() {
     //conditional render based on width
-      //two review columns or 1
+    //two review columns or 1
 
     //conditional render GET request to server fails
 
@@ -186,7 +186,7 @@ class ReviewApp extends React.Component {
           <ReviewStatistics>
             <Rating>{this.state.recommendationString}</Rating>
             <ReviewCount>{`(${this.state.reviews.length} reviews)`}</ReviewCount>
-            <img height='12px' width='12px'src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
+            <img height='12px' width='12px' src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
           </ReviewStatistics>
         </OverallReviews>
         <RecentReviews className='recentReviews'>
@@ -194,16 +194,16 @@ class ReviewApp extends React.Component {
           <RecentStatistics>
             <RecentRating>Very Positive</RecentRating>
             <RecentReviewCount>{`(${this.state.helpfulReviews.length} reviews)`}</RecentReviewCount>
-            <img height='12px' width='12px'src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
+            <img height='12px' width='12px' src="https://store.akamai.steamstatic.com/public/shared/images/ico/icon_questionmark.png"></img>
           </RecentStatistics>
         </RecentReviews>
         {this.state.showGraph ? <Graph></Graph> : null}
         <FilteringOptions className='filteringOptions'>
           <ReviewType>
-            <ReviewTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)}/>
+            <ReviewTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)} />
           </ReviewType>
           <PurchaseType>
-            <PurchaseTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)}/>
+            <PurchaseTypeFilter reviewCounts={reviewCountObj} reviewFilterChange={this.reviewFilterChange.bind(this)} />
           </PurchaseType>
           <LanguageType>
             <LanguageTypeFilter />
@@ -223,10 +223,10 @@ class ReviewApp extends React.Component {
             Filters:
           </FiltersDiv>
           {/* {this.state.reviewType === 'Positive' ? <span> Positive &#9447;</span> : null } */}
-          {this.state.reviewType === 'Positive' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType}/> : null }
-          {this.state.reviewType === 'Negative' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType}/> : null }
-          {this.state.purchaseType === 'Steam Purchases' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType}/> : null }
-          {this.state.purchaseType === 'Other' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType}/> : null }
+          {this.state.reviewType === 'Positive' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType} /> : null}
+          {this.state.reviewType === 'Negative' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.reviewType} /> : null}
+          {this.state.purchaseType === 'Steam Purchases' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType} /> : null}
+          {this.state.purchaseType === 'Other' ? <Pill filterReset={this.filterReset.bind(this)} filterType={this.state.purchaseType} /> : null}
         </CurrentFilters>
         <RestulCount>
           Showing reviews that match the filters above  ( Very Positive )
@@ -235,13 +235,13 @@ class ReviewApp extends React.Component {
           MOST HELPFUL REVIEWS  IN THE PAST 30 DAYS
         </PrimaryFilterResults>
         <PrimaryReviewContainer>
-          <PrimaryReviewList filteredReviewCountLifter={this.filteredReviewCountLifter.bind(this)} purchaseType={this.state.purchaseType} reviewType={this.state.reviewType} reviews={this.state.helpfulReviews}/>
+          <PrimaryReviewList filteredReviewCountLifter={this.filteredReviewCountLifter.bind(this)} purchaseType={this.state.purchaseType} reviewType={this.state.reviewType} reviews={this.state.helpfulReviews} />
         </PrimaryReviewContainer>
         <SecondaryReviewResults>
           RECENTLY POSTED
         </SecondaryReviewResults>
         <SecondaryReviewContainer>
-          <SecondaryReviewList reviews={this.state.reviews}/>
+          <SecondaryReviewList reviews={this.state.reviews} />
         </SecondaryReviewContainer>
       </ReviewAppContainer>
     );
