@@ -13,7 +13,6 @@ server.get('/:id', (req, res) => {
   res.sendFile(require('path').resolve('public/index.html'));
 });
 
-
 server.listen(4000, () => {
   console.log(`Main Server listening on port 4000}`);
 });
